@@ -1,1 +1,4 @@
-# MarketCurly-Moniterling_Recommand_System
+# 마켓컬리 2022년 해커톤
+
+## 주제 : 2번 항목 - 상품별 적정가를 모니터링할 수 있는 해결방안 제안
+
