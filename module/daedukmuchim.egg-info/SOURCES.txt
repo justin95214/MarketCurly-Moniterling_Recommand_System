@@ -1,0 +1,7 @@
+README.txt
+daedukmuchim.py
+setup.py
+daedukmuchim.egg-info/PKG-INFO
+daedukmuchim.egg-info/SOURCES.txt
+daedukmuchim.egg-info/dependency_links.txt
+daedukmuchim.egg-info/top_level.txt
