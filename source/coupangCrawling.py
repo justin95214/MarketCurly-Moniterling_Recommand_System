@@ -1,17 +1,16 @@
-import sys
-from itertools import product
 import warnings
+########################################
 
 from daedukmuchim import search_setting
 from DB import DB
 from crawling import CoupangCrawling
-# db부분
 
+warnings.filterwarnings("ignore")
 
 TABLE_NAME = 'coupang'
-
 ENGINE_URL = 'mysql+pymysql://root:qwer1234@localhost:3306/kurly?charset=utf8mb4'
 # ENGINE_URL = 'mysql+pymysql://root:root@localhost:3306/kurly?charset=utf8mb4'
+
 db = DB(TABLE_NAME, ENGINE_URL)
 conn = db.get_conn()
 

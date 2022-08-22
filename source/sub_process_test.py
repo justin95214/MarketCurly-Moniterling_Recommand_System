@@ -13,10 +13,10 @@ def server_start(command_list):
 
 if __name__ == '__main__':
     print(f'### current dir {os.getcwd()}')
-    keyword = input('크롤링할 키워드 입력 : ')
+    keyword = input('input keyword : ')
     total_page = '5'
     crawling_command1 = ['python', 'coupangCrawling.py', keyword, total_page]
-    # crawling_command2 = ['python', 'emartCrawling.py', keyword]
+    crawling_command2 = ['python', 'emartCrawling.py', keyword, total_page]
     crawling_command3 = ['python', 'gmarketCrawling.py', keyword, total_page]
     #crawling_command4 = ['python', 'naverCrawling.py', keyword, total_page]
     crawling_command4 = ['python', 'naverCrawling.py', keyword, '10']

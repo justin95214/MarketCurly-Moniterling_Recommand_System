@@ -1,17 +1,6 @@
-import sys
-from datetime import datetime
-from xmlrpc.client import DateTime
-import requests
-
-import pandas as pd
-import re
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Table
 import warnings
-import daedukmuchim
+
+########################################
 
 from daedukmuchim import search_setting
 from crawling import NaverCrawling
@@ -53,7 +42,6 @@ keyword = ''
 total_page = 0
 
 keyword, total_page = search_setting()
-
 naverCrawl.crawling(db=db, keyword=keyword, total_page=total_page)
 
 # iqr = 0

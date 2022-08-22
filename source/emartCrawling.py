@@ -1,15 +1,6 @@
-import time
-import json
-import requests
-from bs4 import BeautifulSoup as bs
 from fake_useragent import UserAgent
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Table
 import warnings
-import re
-###############################
+########################################
 
 from daedukmuchim import search_setting
 from DB import DB
@@ -18,9 +9,9 @@ from crawling import EmartCrawling
 warnings.filterwarnings("ignore")
 
 TABLE_NAME = 'emart'
-
 ENGINE_URL = 'mysql+pymysql://root:qwer1234@localhost:3306/kurly?charset=utf8mb4'
 # ENGINE_URL = 'mysql+pymysql://root:root@localhost:3306/kurly?charset=utf8mb4'
+
 db = DB(TABLE_NAME, ENGINE_URL)
 conn = db.get_conn()
 
@@ -44,6 +35,6 @@ emartCrawling = EmartCrawling(TABLE_NAME, base_url, header)
 
 keyword = ''
 total_page = 0
-keyword, total_page = search_setting()
 
+keyword, total_page = search_setting()
 emartCrawling.crawling(db, keyword, total_page)
