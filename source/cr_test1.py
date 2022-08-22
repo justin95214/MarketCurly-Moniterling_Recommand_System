@@ -10,14 +10,9 @@ import warnings
 import time
 
 
-
-
-
-
-
 result = []
 
-i=0
+i = 0
 
 
 cat = input('상품을 입력하시오')
@@ -26,28 +21,26 @@ cat = input('상품을 입력하시오')
 url = "http://browse.gmarket.co.kr/search?keyword="+cat
 
 
-
-
 while True:
-	i+=1
-	time.sleep(15)
-	ua = UserAgent()
+    i += 1
+    time.sleep(15)
+    ua = UserAgent()
 
-	print(f'page : {i}')
-	
-	custom_header ={
+    print(f'page : {i}')
+
+    custom_header = {
         'referer': 'http://www.gmarket.co.kr/',
-        #'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
-        'user-agent': ua.random,  
+        # 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        'user-agent': ua.random,
         'authority': 'stags.bluekai.com'
-	}
-	
-	custom_header.update({'user-agent': ua.random})
+    }
 
-	res = requests.get(url.format(i), headers= custom_header)
-	if res.status_code == 401:
-		break;
+    custom_header.update({'user-agent': ua.random})
 
-	if res.status_code == 200:
-		html = bs(res.text, 'lxml')
-		print(html)
+    res = requests.get(url.format(i), headers=custom_header)
+    if res.status_code == 401:
+        break
+
+    if res.status_code == 200:
+        html = bs(res.text, 'lxml')
+        print(html)
