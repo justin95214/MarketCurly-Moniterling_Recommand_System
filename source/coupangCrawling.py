@@ -81,10 +81,8 @@ def coupang_products(keyword, pages):
             for word in result:
                 if 'KG' in word:
                     a_li = word.split("KG")[0]
-                    
                 elif 'kg' in word:
                     a_li = word.split("kg")[0]
-                    
                 elif 'g' in word:
                     a_li = word.split("g")[0]
                     
@@ -119,16 +117,17 @@ def coupang_products(keyword, pages):
                 'location' : location
             }
             products_link.append(products_info)
+            try:
+                price = (int)((int)(price)/(float)(weight))
+                insertDB(date,prd_name,price,weight,kind,site,location)
+            except:
+                pass
 
-            insertDB(date,prd_name,price,weight,kind,site,location)
-            
     df = pd.DataFrame(products_link)
     
-    df.to_csv('coupang.csv', index=False, encoding='utf-8-sig')
+    df.to_csv('crawling.csv', index=False, encoding='utf-8-sig',mode = "a")
 
-
-
-engineUrl = 'mysql+pymysql://root:root@localhost:3306/naver_db?charset=utf8mb4'
+engineUrl = 'mysql+pymysql://root:root@localhost:3306/kurly?charset=utf8mb4'
 
 get_engine()
 engine = get_engine()
@@ -145,13 +144,10 @@ conn = engine.connect()
 metadata = MetaData(bind=engine)
 
 
-table = Table('coupang', metadata, autoload=True)
+table = Table('crawling', metadata, autoload=True)
 
 insert_table=table.insert()
 
-
-
-
 if __name__ == '__main__':
     query = input('검색어를 작성하세요')
-    coupang_products(query, 10) 
+    coupang_products(query, 1) 

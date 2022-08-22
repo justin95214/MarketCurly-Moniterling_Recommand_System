@@ -11,7 +11,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Table
 import warnings
-
 import daedukmuchim
 
 df_location = daedukmuchim.read_location_csv()
@@ -141,7 +140,12 @@ def printData(itemList) :
             mallInfo = i['mallInfoCache']['onmktRegisterNo']
         except:
             mallInfo = ''
+        try:
+            price = (int)((int)(price)/(float)(weight))
+        except:
+            pass
         
+
         insertDB(date,title,price,weight,kind,site,location)
         df.loc[title] = [date,title,price,weight,kind,site,location]
         
@@ -176,7 +180,7 @@ def makeRequestAndGetResponse(number,query) :
 ## 로직부분 ##
 #####################################################################################################################
 
-engineUrl = 'mysql+pymysql://root:root@localhost/naver_db?charset=utf8mb4'
+engineUrl = 'mysql+pymysql://root:root@localhost/kurly?charset=utf8mb4'
 get_engine()
 engine = get_engine()
 
@@ -190,14 +194,12 @@ conn = engine.connect()
 metadata = MetaData(bind=engine)
 
 
-table = Table('naver', metadata, autoload=True)
+table = Table('crawling', metadata, autoload=True)
 insert_table=table.insert()
 
 conn.execute('SET NAMES utf8;')
 conn.execute('SET CHARACTER SET utf8;')
 conn.execute('SET character_set_connection=utf8;')
-
-
 
 df = pd.DataFrame(columns=['date','title','price','weight','kind','site','location'])
 
@@ -206,7 +208,7 @@ previousItemList = []
 query = 0
 query = input('검색어를 작성하세요')
 number = 1
-while number < 20 :
+while number < 100 :
     print('page ', number)
 
     # 네이버를 향한 Request 생성 and 네이버로부터 response 받기
@@ -232,4 +234,26 @@ while number < 20 :
     printData(itemList)
     number = number + 1
 
-df.to_csv("naver.csv",encoding="utf-8-sig",mode = "w")
+df.to_csv("crawling.csv", index=False, encoding="utf-8-sig",mode = "a")
+
+# iqr = 0
+# q3 = df['price'].quantile(0.75)
+# q1 = df.quantile(0.25)
+
+# iqr = q3 - q1
+
+# def is_kor_outlier(df):
+#     score = df['price']
+#     if score > q3['price'] + 1.5 * iqr['price'] or score < q1['price'] - 1.5 * iqr['price']:
+#         return True
+#     else:
+#         return False
+
+# # apply 함수를 통하여 각 값의 이상치 여부를 찾고 새로운 열에 결과 저장
+# df['price_이상치여부'] = df.apply(is_kor_outlier, axis = 1) # axis = 1 지정 필수
+# df_trim = df.loc[df['price_이상치여부'] == False]
+
+# # 이상치여부를 나타내는 열 제거
+# del df_trim['price_이상치여부']
+
+# df_trim
