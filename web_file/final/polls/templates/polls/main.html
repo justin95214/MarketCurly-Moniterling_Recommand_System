@@ -378,7 +378,7 @@ path:hover{
                 <input class="btn" type="submit" value="검색" onClick='return submit1(this.form);'>
                 <input type="checkbox" name="selected" value="Coupang"  >쿠팡
             <input type="checkbox"  name="selected" value="Naver"  >네이버
-            <input type="checkbox"  name="selected" value="Emart"  >이마트
+            
             <input type="checkbox" name="selected" value="Gmarket"  >G마켓</br>
                
                 {{df| safe}}
@@ -399,7 +399,7 @@ path:hover{
                 <input class="btn" type="submit" value="검색" onClick='return submit2(this.form);'>
             </form>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
-            <div style="width: 700px; height:600px; margin: 25px;">
+            <div style="width: 800px; height:600px; margin: 50px;">
                 <!--차트가 그려질 부분-->
                 <canvas id="myChart2"></canvas>
             </div>
@@ -410,8 +410,7 @@ path:hover{
                 var coumin = '{{coumin}}';
                 var margin = '{{marginpercent}}';
                 var name2 = '{{productname}}';
-                var emin = '{{emin}}';
-                var emax = '{{emax}}';
+               
                 var gmin = '{{gmin}}';
                 var gmax = '{{gmax}}';
                 if (name2 == "사과") {
@@ -427,19 +426,15 @@ path:hover{
                     max2 = 100 * (margincou1 / coumax)   //쿠팡 최대
                     min2 = 100 * (margincou2 / coumin)  //쿠팡 최소
 
-                    marginvalue1 = emax - margin //이마트 최대마진가 = 최대상품가-공급가
-
-                    marginvalue2 = emin - margin  //이마트  최소 마진가 = 최소상품가- 공급가
+                   
                     margincou1 = gmax - margin //G마켓 최대
                     margincou2 = gmin - margin //G마켓 최소
-                    max3 = 100 * (marginvalue1 / emax)  //이마트  최대마진가율 = 100*(마진가/상품가)
-
-                    min3 = 100 * (marginvalue2 / emin)  //이마트  최소
+                   
                     max4 = 100 * (margincou1 / gmax)   //G마켓 최대
                     min4 = 100 * (margincou2 / gmin)  //G마켓 최소
 
-                    datamin = [min2, min1,min3,min4]
-                    datamax = [max2, max1,max3,max4]
+                    datamin = [min2, min1,min4]
+                    datamax = [max2, max1,max4]
 
                 }
                 else if (name2 == "김치") {
@@ -457,7 +452,7 @@ path:hover{
                     // type : 'bar' = 막대차트를 의미합니다.
                     // 
                     data: {
-                        labels: ['쿠팡', '네이버', '이마트', 'G마켓'],
+                        labels: ['쿠팡', '네이버', 'G마켓'],
                         datasets: [{
                             type: 'bar',
                             label: '최대상품가 마진가율',
@@ -483,7 +478,7 @@ path:hover{
         <div class="left4">
             관심도 변화
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
-            <div style="width: 700px; height: 700px; margin: 25px;">
+            <div style="width: 800px; height: 700px; margin: 50px;">
                 <!--차트가 그려질 부분-->
                 <canvas id="myChart"></canvas>
             </div>
