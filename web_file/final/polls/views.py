@@ -12,8 +12,7 @@ def main_page(request): #아무것도 없는 첫화면
 
 
 def filter(market_list_input, df):
-
-    print(market_list_input)
+    print(df)
     # 필터 마켓 리스트
     result_df = pd.DataFrame()
     for market in market_list_input:
