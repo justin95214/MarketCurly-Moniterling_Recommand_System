@@ -74,8 +74,6 @@ def submit(request):
     # data0 = pd.DataFrame(data)
    
 
-   
-
     data0 = read_total_data()
     # data0 = filter(market_list, data0)
     ###
