@@ -1,3 +1,4 @@
+from cmath import nan
 from django.shortcuts import render
 from django.http import HttpResponse
 import pymysql
@@ -52,7 +53,15 @@ def calc_city_avg(df, city_list):
     print('test', df['location'])
     print('test', df[df['location'] == '서울특별시'])
     for city in city_list:
-        mean_value = df[df['location'] == df[city]]['price'].mean()
+        total = 0
+        count = 0
+        for temp in df:
+            if temp['location'] == city:
+                if temp['price'].isdigit():
+                    total += temp['price']
+                    count += 1
+        print(temp['location'], total)
+        mean_value = total / count
         city_dict[city] = mean_value
     
     return city_dict
