@@ -1,19 +1,36 @@
-beautifulsoup4 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_croot-cdiouih5/beautifulsoup4_1650462164803/work
-brotlipy==0.7.0
-cffi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_62rp5d8fd4/croots/recipe/cffi_1659598655556/work
-charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
-cryptography @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_b470f7cb-c8f1-42c9-b84f-23789ea77e7c9difcqh4/croots/recipe/cryptography_1652101134392/work
+async-generator==1.10
+attrs==22.1.0
+beautifulsoup4==4.11.1
+certifi==2022.6.15
+cffi==1.15.1
+charset-normalizer==2.1.0
+cryptography==37.0.4
+daedukmuchim==1.0.1
+DateTime==4.5
 fake-useragent==0.1.11
-greenlet==1.1.2
-idna @ file:///tmp/build/80754af9/idna_1637925883363/work
-importlib-metadata==4.12.0
+h11==0.13.0
+HTMLParser==0.0.2
+idna==3.3
 lxml==4.9.1
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
-PySocks @ file:///opt/concourse/worker/volumes/live/ef943889-94fc-4539-798d-461c60b77804/volume/pysocks_1605305801690/work
-requests @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_516b78ce-034d-4395-b9b5-1d78c2847384qtnol99l/croots/recipe/requests_1657734628886/work
-soupsieve @ file:///tmp/build/80754af9/soupsieve_1636706018808/work
+numpy==1.23.2
+outcome==1.2.0
+pandas==1.4.3
+pycparser==2.21
+PyMySQL==1.0.2
+PySocks==1.7.1
+python-dateutil==2.8.2
+pytz==2022.2.1
+requests==2.28.1
+schedule==1.1.0
+selenium==4.4.3
+six==1.16.0
+sniffio==1.2.0
+sortedcontainers==2.4.0
+soupsieve==2.3.2.post1
 SQLAlchemy==1.4.40
-typing_extensions==4.3.0
-urllib3 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_53dwuk2xkk/croots/recipe/urllib3_1659110467968/work
-zipp==3.8.1
+tk==0.1.0
+trio==0.21.0
+trio-websocket==0.9.2
+urllib3==1.26.11
+wsproto==1.1.0
+zope.interface==5.4.0
