@@ -261,8 +261,7 @@ path:hover{
                 var tooltip = d3.select("body")
                     .append("div")
                     .style('position', 'absolute')
-                    .style('left', d3.event.dx + "px")
-                    .style('top', d3.event.dy + "px")
+                    
                     .style("z-index", "10")
                     .style("visibility", "hidden")
                     .text("a simple tooltip")
@@ -277,20 +276,19 @@ path:hover{
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
                     .attr("r", "5px")
                     .attr("fill", "red")
-                    .on('mouseover', function () { return tooltip.style("visibility", "visible"); })
-                    .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
-                    .on('click', spot_clicked_event)
-                    .on("mousemove", function (d) {
+                    .on('mouseover', function () { 
                         tooltip.style("left", (d3.event.pageX + 10) + "px");
                         tooltip.style("top", (d3.event.pageY - 10) + "px");
-                        tooltip.text(d.y);
+                        return tooltip.style("visibility", "visible"); 
                     })
+                    .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
+                    .on('click', spot_clicked_event)
+                    
                     
                     .transition()
                     .ease(d3.easeElastic);
 
-                var posx = map.selectAll.attr.attr("cx", function (d) { return projection([d.lon, d.lat])[0]; })
-                var posy = map.selectAll.attr.attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
+               
                 
             }
 
