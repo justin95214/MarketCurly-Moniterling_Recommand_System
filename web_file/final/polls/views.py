@@ -10,19 +10,17 @@ def main_page(request): #아무것도 없는 첫화면
     return render(request,'polls/main.html')
 
 
-def rain_condition(v):
-    if v < 1.75:
-        return "Dry"
-    elif v < 2.75:
-        return "Rain"
-    return "Heavy Rain"
 
-def make_pretty(styler):
-    styler.set_caption("Weather Conditions")
-    styler.format(rain_condition)
-    styler.format_index(lambda v: v.strftime("%A"))
-    styler.background_gradient(axis=None, vmin=1, vmax=5, cmap="YlGdnBu")
-    return styler
+def filter(market_list_input, df):
+    # 필터 마켓 리스트
+    tmp_df = df[df['site'] in market_list_input].copy()
+    tmp_df = pd.pivot_table(tmp_df,                # 피벗할 데이터프레임
+                     index = 'location',    # 행 위치에 들어갈 열
+                     columns = 'unit_price',    # 열 위치에 들어갈 열
+                     values = 'price',     # 데이터로 사용할 열
+                     aggfunc = 'count')
+
+    return tmp_df
 
 
 def read_total_data():
@@ -44,10 +42,6 @@ def submit(request):
     productname = request.POST.get('productname') #상품명
     #date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
-
-  
-
-
 
     data = {
         'year': [2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,1,1,1,1,1],
@@ -74,11 +68,9 @@ def submit(request):
    
 
     data0 = read_total_data()
+    data0 = filter(market_list, data0)
+    ###
     #data0 = pd.DataFrame(data)
-
-    data0 = data0.style.set_table_styles(
-    [dict(selector='td', props='font-size : 5px; '),dict(selector='tr', props='font-size : 5px;'),dict(selector = 'tbody tr:nth-child(even)', props='background-color: #00BFFF;')]
-    ) 
   
     #data0.style.applymap(draw_color_cell,color='#ff9090',subset=pd.IndexSlice[0:2,'GDP':'hi'])
 
