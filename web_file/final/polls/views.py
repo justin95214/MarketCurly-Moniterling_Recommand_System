@@ -13,7 +13,7 @@ def main_page(request): #아무것도 없는 첫화면
 
 def filter(market_list_input, df):
     # 필터 마켓 리스트
-    result_df = pd.DateFrame()
+    result_df = pd.DataFrame()
     for market in market_list_input:
         tmp_df = df[df['site'] == market].copy()
         result_df = pd.concat([result_df, tmp_df], ignore_index= True)
