@@ -43,7 +43,7 @@ def read_total_data():
     #쿠팡
     curs.execute("SELECT * FROM Total") 
     item_list = curs.fetchall()
-    item_df = pd.DataFrame(item_list)
+    item_df = pd.DataFrame(item_list, columns=[['date','title','price','weight','kind','site','location']])
     return item_df
 
 def submit(request): 
