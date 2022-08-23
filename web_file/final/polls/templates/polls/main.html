@@ -272,7 +272,7 @@ path:hover{
                     .attr('class', 'tooltip')
                     .style("z-index", "10")
                     .style("visibility", "hidden")
-                    .text("{지역} 가격 <br>100000")
+                    .text("")
 
                     projection.scale(scale).center(center);
 
@@ -291,6 +291,7 @@ path:hover{
                         .on('mouseover', function () { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
+                            console.log(`${this.attr.class} ${CITIES_DICT[this.attr.class]}`);
                             tooltip.text = `${CITIES_DICT[this.attr.class]}`;
                             return tooltip.style("visibility", "visible"); 
                         })
