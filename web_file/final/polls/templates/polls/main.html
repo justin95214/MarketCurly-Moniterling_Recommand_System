@@ -257,6 +257,14 @@ path:hover{
             }
 
             function spotting_on_map() {
+
+                var tooltip = d3.select("body")
+                    .append("div")
+                    .style("position", "absolute")
+                    .style("z-index", "10")
+                    .style("visibility", "hidden")
+                    .text("a simple tooltip");
+
                 var circles = map.selectAll("circle")
                     .data(spots).enter()
                     .append("circle")
@@ -265,7 +273,7 @@ path:hover{
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
                     .attr("r", "2px")
                     .attr("fill", "red")
-                    .on('mouseover', spot_mouseover)
+                    .on('mouseover', function(){return tooltip.style("visibility", "visible");})
                     .on('click', spot_clicked_event)
                     
                     .transition()
