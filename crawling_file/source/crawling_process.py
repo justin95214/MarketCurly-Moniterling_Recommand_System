@@ -22,7 +22,7 @@ def crawling_process(keyword='사과', total_page='1'):
     crawling_command3 = ['python', 'gmarketCrawling.py', keyword, total_page]
     crawling_command4 = ['python', 'naverCrawling.py', keyword, total_page]
     # crawling_command4 = ['python', 'naverCrawling.py', keyword, '10']
-    command_list = [crawling_command1,
+    command_list = [crawling_command1, crawling_command2,
                     crawling_command3, crawling_command4]
 
     process_list = sub_process_list_start(command_list=command_list)
@@ -45,6 +45,7 @@ if __name__ == '__main__':
     elif argc == 3:
         keyword = sys.argv[1]
         total_page = sys.argv[2]
+        crawling_process(keyword=keyword, total_page=total_page)
 
     #################### 스케줄러 코드 #######################
     # schedule_list = []
