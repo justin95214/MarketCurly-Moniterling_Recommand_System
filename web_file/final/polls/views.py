@@ -13,8 +13,12 @@ def main_page(request): #아무것도 없는 첫화면
 
 def filter(market_list_input, df):
     # 필터 마켓 리스트
-    tmp_df = df[df['site'] in market_list_input].copy()
-    tmp_df = pd.pivot_table(tmp_df,                # 피벗할 데이터프레임
+    result_df = pd.DateFrame()
+    for market in market_list_input:
+        tmp_df = df[df['site'] == market].copy()
+        result_df = pd.concat([result_df, tmp_df], ignore_index= True)
+
+    tmp_df = pd.pivot_table(result_df,                # 피벗할 데이터프레임
                      index = 'location',    # 행 위치에 들어갈 열
                      columns = 'unit_price',    # 열 위치에 들어갈 열
                      values = 'price',     # 데이터로 사용할 열
