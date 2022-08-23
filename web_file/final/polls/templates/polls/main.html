@@ -265,13 +265,14 @@ path:hover{
                             return tooltip.style("visibility", "visible"); 
                         })
                         .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
-                        .on('click', spot_clicked_event)
+                        
 
                     callback();
                 });
             }
 
             function spotting_on_map() {
+
                 var circles = map.selectAll("circle")
                     .data(spots).enter()
                     .append("circle")
