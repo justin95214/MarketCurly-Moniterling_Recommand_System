@@ -223,6 +223,7 @@ class GmarketCrawling(Crawling):
                         location_list = []
 
                         weight_root = ""
+                        weight = ""
                         for m in candid_name:
                             if 'kg' in m or 'KG' in m:
                                 try:
