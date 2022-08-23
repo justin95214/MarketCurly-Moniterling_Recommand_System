@@ -12,24 +12,24 @@ def main_page(request): #아무것도 없는 첫화면
 
 
 def filter(market_list_input, df):
-    print(df)
     # 필터 마켓 리스트
-    result_df = pd.DataFrame()
-    for market in market_list_input:
-        tmp_df = df[df['site'] == market].copy()
-        print(tmp_df)
-        result_df = pd.concat([result_df, tmp_df], ignore_index= True)
+    # result_df = pd.DataFrame()
+    # for market in market_list_input:
+    #     tmp_df = df[df['site'] == market].copy()
+    #     print(tmp_df)
+    #     result_df = pd.concat([result_df, tmp_df], ignore_index= True)
 
-    print(result_df['price'].values.tolist())
-    print(result_df['weight'].values.tolist())
-    result_df['unit_price'] = result_df['price']/result_df['weight']
+    # print(result_df['price'].values.tolist())
+    # print(result_df['weight'].values.tolist())
+    # result_df['unit_price'] = result_df['price']/result_df['weight']
 
-    one_df = pd.pivot_table(result_df,                # 피벗할 데이터프레임
-                     index = 'location',    # 행 위치에 들어갈 열
-                     columns = 'unit_price',    # 열 위치에 들어갈 열
-                     values = 'price',     # 데이터로 사용할 열
-                     aggfunc = 'count')
- 
+    # one_df = pd.pivot_table(result_df,                # 피벗할 데이터프레임
+    #                  index = 'location',    # 행 위치에 들어갈 열
+    #                  columns = 'unit_price',    # 열 위치에 들어갈 열
+    #                  values = 'price',     # 데이터로 사용할 열
+    #                  aggfunc = 'count')
+    one_df = df[df['site'] in market_list_input].copy()
+    print(one_df)
     return one_df
 
 
