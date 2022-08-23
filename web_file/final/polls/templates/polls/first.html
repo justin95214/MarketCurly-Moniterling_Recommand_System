@@ -4,6 +4,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <style>
+    input.btn{
+        background-color: rgb( 95 0 128);
+        border-radius: 0.5rem;
+        color:white;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size : 15px;
+    }
        path{
     fill: gainsboro;
     stroke: white;
@@ -331,7 +339,7 @@ body {
             상품명: <input name ='productname' type="text" value="">
             날짜: <input type="date" id='now_date'>
             <script>document.getElementById('now_date').valueAsDate = new Date();</script>
-            <input type="submit" value="검색" onClick='return submit1(this.form);'>
+            <input class="btn" type="submit" value="검색" onClick='return submit1(this.form);'>
             </form>
         </div>
 
@@ -341,7 +349,7 @@ body {
             타 E커머스 가격 비교 마진율 현황</br>
             <form id="test2" method="post" action="">{% csrf_token %}
                 상품 공급가: <input type="text" name="margin"> (100g or 1kg 당)
-                <input type="submit" value="검색" onClick='return submit2(this.form);'>
+                <input  class="btn" type="submit" value="검색" onClick='return submit2(this.form);'>
             </form>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
             <div style="width: 500px; height:500px; margin: 15px;">

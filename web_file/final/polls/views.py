@@ -92,10 +92,14 @@ def margin(request):
     password='227899',
     db='crawling')
 
+
+    # conn = pymysql.connect(
     # host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
     # user='awsusr',
     # password='12345678',
-    # db='daduckDB'
+    # db='daduckDB')
+
+  
 
     curs = conn.cursor()
   
