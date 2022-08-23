@@ -12,7 +12,8 @@ def main_page(request): #아무것도 없는 첫화면
 
 
 def filter(market_list_input, df):
-    tmp_df = df[df['site'] == 'Naver']
+    print(df.columns)
+    print(df.head(10))
     """
     print(market_list_input)
     # 필터 마켓 리스트
@@ -27,7 +28,7 @@ def filter(market_list_input, df):
                      values = 'price',     # 데이터로 사용할 열
                      aggfunc = 'count')
     """
-    return tmp_df
+    return df
 
 
 def read_total_data():
@@ -42,7 +43,7 @@ def read_total_data():
     #쿠팡
     curs.execute("SELECT * FROM Total") 
     item_list = curs.fetchall()
-    item_df = pd.DataFrame(item_list)
+    item_df = pd.DataFrame(item_list, columns=[['date','title','price','weight','kind','site','location']])
     return item_df
 
 def submit(request): 
