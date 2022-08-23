@@ -277,9 +277,14 @@ path:hover{
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
                     .attr("r", "5px")
                     .attr("fill", "red")
-                    .on('mouseover', function() { tooltip.style("display", null); })
-                    .on("mouseout", function() { tooltip.style("display", "none"); })
+                    .on('mouseover', function () { return tooltip.style("visibility", "visible"); })
+                    .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
                     .on('click', spot_clicked_event)
+                    .on("mousemove", function (d) {
+                        tooltip.style("left", (d3.event.pageX + 10) + "px");
+                        tooltip.style("top", (d3.event.pageY - 10) + "px");
+                        tooltip.text(d.y);
+                    })
                     
                     .transition()
                     .ease(d3.easeElastic);
