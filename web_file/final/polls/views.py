@@ -20,15 +20,17 @@ def filter(market_list_input, df):
         tmp_df = df[df['site'] == market].copy()
         result_df = pd.concat([result_df, tmp_df], ignore_index= True)
 
-    tmp_df['unit_price'] = result_df['price']/result_df['weight']
+    print(result_df['price'].values.tolist())
+    print(result_df['weight'].values.tolist())
+    result_df['unit_price'] = result_df['price']/result_df['weight']
 
-    tmp_df = pd.pivot_table(result_df,                # 피벗할 데이터프레임
+    one_df = pd.pivot_table(result_df,                # 피벗할 데이터프레임
                      index = 'location',    # 행 위치에 들어갈 열
                      columns = 'unit_price',    # 열 위치에 들어갈 열
                      values = 'price',     # 데이터로 사용할 열
                      aggfunc = 'count')
  
-    return df
+    return one_df
 
 
 def read_total_data():
