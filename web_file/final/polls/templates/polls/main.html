@@ -297,11 +297,10 @@ path:hover{
                         })
                         .attr("d", path)
                         .on("click", province_clicked_event)
-                        .on('mouseover', function () { 
+                        .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            console.log(`### ${typeof(this.properties)} ${this.properties}`);
-                            tooltip.text = `${CITIES_DICT[this.attr.class]}`;
+                            tooltip.text = `${CITIES_DICT['c-' + d.properties.code]}`;
                             return tooltip.style("visibility", "visible"); 
                         })
                         .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
