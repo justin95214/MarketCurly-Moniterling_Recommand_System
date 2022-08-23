@@ -237,6 +237,14 @@ path:hover{
                     var distance = d3.geoDistance(bounds[0], bounds[1]);
                     var scale = HEIGHT / distance / Math.sqrt(2) * 1.2;
 
+                    var tooltip = d3.select("body")
+                    .append("div")
+                    .style('position', 'absolute')
+                    
+                    .style("z-index", "10")
+                    .style("visibility", "hidden")
+                    .text("a simple tooltip")
+
                     projection.scale(scale).center(center);
 
                     console.log("center", center);
@@ -250,24 +258,20 @@ path:hover{
                             return "municipality c " + d.properties.code;
                         })
                         .attr("d", path)
-                        .on("click", province_clicked_event);
+                        .on("click", province_clicked_event)
+                        .on('mouseover', function () { 
+                            tooltip.style("left", (d3.event.pageX + 10) + "px");
+                            tooltip.style("top", (d3.event.pageY - 10) + "px");
+                            return tooltip.style("visibility", "visible"); 
+                        })
+                        .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
+                        .on('click', spot_clicked_event)
 
                     callback();
                 });
             }
 
             function spotting_on_map() {
-
-                var tooltip = d3.select("body")
-                    .append("div")
-                    .style('position', 'absolute')
-                    
-                    .style("z-index", "10")
-                    .style("visibility", "hidden")
-                    .text("a simple tooltip")
-
-                
-
                 var circles = map.selectAll("circle")
                     .data(spots).enter()
                     .append("circle")
@@ -276,13 +280,7 @@ path:hover{
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
                     .attr("r", "5px")
                     .attr("fill", "red")
-                    .on('mouseover', function () { 
-                        tooltip.style("left", (d3.event.pageX + 10) + "px");
-                        tooltip.style("top", (d3.event.pageY - 10) + "px");
-                        return tooltip.style("visibility", "visible"); 
-                    })
-                    .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
-                    .on('click', spot_clicked_event)
+                    
                     
                     
                     .transition()
