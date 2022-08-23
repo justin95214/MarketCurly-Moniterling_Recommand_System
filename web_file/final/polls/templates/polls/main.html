@@ -260,7 +260,7 @@ path:hover{
 
                 var tooltip = d3.select("body")
                     .append("div")
-                    .style("position", spots)
+                    .style("position", circles.position)
                     .style("z-index", "10")
                     .style("visibility", "hidden")
                     .text("a simple tooltip")
@@ -271,7 +271,7 @@ path:hover{
                     .attr("class", "spot")
                     .attr("cx", function (d) { return projection([d.lon, d.lat])[0]; })
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
-                    .attr("r", "20px")
+                    .attr("r", "5px")
                     .attr("fill", "red")
                     .on('mouseover', function(){return tooltip.style("visibility", "visible");})
                     .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
