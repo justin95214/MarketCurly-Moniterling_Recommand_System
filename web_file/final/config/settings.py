@@ -81,27 +81,27 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'crawling',
+#        'USER': 'root',
+#        'PASSWORD' : '227899',
+#        'HOST' : '127.0.0.1',
+#        'PORT' : '3306',
+#    }
+#}  
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crawling',
-        'USER': 'root',
-        'PASSWORD' : '227899',
-        'HOST' : '127.0.0.1',
+        'NAME': 'daduckDB',
+        'USER': 'awsusr',
+        'PASSWORD' : '12345678',
+        'HOST' : 'awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
         'PORT' : '3306',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'daduckDB',
-#         'USER': 'awsusr',
-#         'PASSWORD' : '12345678',
-#         'HOST' : 'awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
-#         'PORT' : '3306',
-#     }
-# }
 
 
 

@@ -63,25 +63,7 @@ path:hover{
     <title>Document</title>
 
     <script>
-        function submit1(form) {
-            var coubtn = $('[name=coupang]').is(':checked'); 
-            var navbtn = $('[name=naver]').is(':checked'); 
-            var ebtn = $('[name=emart]').is(':checked'); 
-            var gbtn = $('[name=gmarket]').is(':checked'); 
-            frm.action = "/submit/";
 
-            form.submit();
-            return true;
-        }
-        function submit2(frm) {
-            frm.action = "/margin/";
-            
-            return true;
-        }
-
-        function btn(){
-            
-        }
         
 
     </script>
@@ -209,7 +191,7 @@ path:hover{
     <img src="https://ifh.cc/g/0JqcHY.png"  />
 </div>
 <div class="left2">
-    카테고리별 상품 추천 가격 범위 {{coubtn}} {{navbtn}} {{ebtn}} {{gbtn}} 
+    카테고리별 상품 추천 가격 범위 
 </div>
 <div class="right2">
     지역별 가격 추세
@@ -284,12 +266,17 @@ path:hover{
                     .attr("r", "2px")
                     .attr("fill", "red")
                     .on('click', spot_clicked_event)
+                    .addEventListener("mouseover", spot_mouseover)
                     .transition()
                     .ease(d3.easeElastic);
             }
 
             function spot_clicked_event(d) {
                 alert(d['tag']);
+            }
+
+            function spot_mouseover(d) {
+                event.target.style.color = "black";
             }
 
             function province_clicked_event(d) {
@@ -339,6 +326,7 @@ path:hover{
 
         function initialize() {
             d3.json(TEST_SPOT_JSON_DATA_URL).then(function (_data) {
+                console.log(`_DATA ${_data}`);
                 d3_korea_map('#map', _data);
             })
         }
@@ -358,13 +346,13 @@ path:hover{
             <form id="test" method="post" action="submit/">{% csrf_token %}
                 상품명: <input id="testpro" name='productname' type="text" value="">
 
-                날짜: <input type="date" id='now_date'>
+                날짜: <input name ="date" type="date" id='now_date'>
                 <script>document.getElementById('now_date').valueAsDate = new Date();</script>
-                <input type="submit" value="검색">
-                <input type="checkbox" name="selected" value="Y"  >쿠팡
-            <input type="checkbox"  name="selected" value="Y"  >네이버
-            <input type="checkbox"  name="selected" value="Y"  >이마트
-            <input type="checkbox" name="selected" value="Y"  >G마켓</br>
+                <input class="btn" type="submit" value="검색" onClick='return submit1(this.form);'>
+                <input type="checkbox" name="selected" value="coupang"  >쿠팡
+            <input type="checkbox"  name="selected" value="naver"  >네이버
+            <input type="checkbox"  name="selected" value="emart"  >이마트
+            <input type="checkbox" name="selected" value="gmarket"  >G마켓</br>
                
                 {{df| safe}}
             </form>
@@ -379,9 +367,9 @@ path:hover{
         
         <div class="left3">
             타 E커머스 가격 비교 마진율 현황</br>
-            <form id="test2" method="post" action="">{% csrf_token %}
+            <form id="test2" method="post" action="margin/">{% csrf_token %}
                 상품 공급가: <input type="text" name="margin"> (100g or 1kg 당)
-                <input type="submit" value="검색" onClick='return submit2(this.form);'>
+                <input class="btn" type="submit" value="검색">
             </form>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
             <div style="width: 500px; height:500px; margin: 15px;">

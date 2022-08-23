@@ -10,5 +10,4 @@ urlpatterns = [
     path('margin/',views.margin),
     path('polls/',views.test),
     
-   
 ]

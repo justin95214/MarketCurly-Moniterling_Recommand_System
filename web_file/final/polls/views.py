@@ -25,9 +25,29 @@ def make_pretty(styler):
     return styler
 
 
+def read_total_data():
+    conn = pymysql.connect(
+    host='127.0.0.1',
+    user='awsusr',
+    password='12345678',
+    db='daduckDB')  
+  
+    curs = conn.cursor()
+
+    #쿠팡
+    curs.execute("SELECT * FROM Total") 
+    item_list = curs.fetchall()
+    item_df = pd.DataFrame(item_list)
+    return item_df
+
 def submit(request): 
-    productname = request.POST.get('productname')
-    market_list = request.POST.getlist('selected')
+    productname = request.POST.get('productname') #상품명
+    #date = request.POST.get('date') #날짜
+    market_list = request.POST.getlist('selected') 
+
+  
+
+
 
     data = {
         'year': [2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,1,1,1,1,1],
@@ -48,12 +68,12 @@ def submit(request):
 
     EVEN_ROW_COLOR = "#00BFFF"
     #data0 = pd.read_csv("https://raw.githubusercontent.com/justin95214/MarketCurly-Moniterling_Recommand_System/main/test11.csv", encoding="utf8")
-    data0 = pd.DataFrame(data)
+    # data0 = pd.DataFrame(data)
    
 
    
 
-   
+    data0 = read_total_data()
     #data0 = pd.DataFrame(data)
 
     data0 = data0.style.set_table_styles(
@@ -72,16 +92,16 @@ def submit(request):
     #data0 = pd.read_csv("test11.csv", encoding="utf8")
     #context = 'df':data0.to_html()
     
-    request.session['test'] =productname
+    request.session['test'] = productname
     
-    return render(request,'polls/main.html',{'productname':productname, 'df':data0.to_html()})
+    return render(request,'polls/main.html',{'productname':productname, 'df':data0.to_html(),'market_list':market_list})
+
 def margin(request):
     conn = pymysql.connect(
     host='127.0.0.1',
-    user='root',
-    password='227899',
-    db='crawling')
-
+    user='awsusr',
+    password='12345678',
+    db='daduckDB')
 
     # conn = pymysql.connect(
     # host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
@@ -153,7 +173,7 @@ def margin(request):
     
     
     conn.close()
-    return render(request,'polls/margin.html',{'productname':productname,'marginpercent':marginpercent,'coumax':coumax,
+    return render(request,'polls/main.html',{'productname':productname,'marginpercent':marginpercent,'coumax':coumax,
     'coumin':coumin,'navmax':navmax,'navmin':navmin,'emax':emax,'emin':emin,'gmax':gmax,'gmin':gmin})
 
 def test(request):
