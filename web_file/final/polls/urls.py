@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     
-    path('',views.first),
+    path('',views.main_page),
     path('submit/',views.submit),
     path('submit2/',views.submit),
     path('margin/',views.margin),

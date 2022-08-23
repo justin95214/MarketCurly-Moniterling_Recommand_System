@@ -335,11 +335,15 @@ body {
         <div class="left">
             타 E커머스 가격 비교 분포도
             </br>
-            <form id="test" method="post" action="">{% csrf_token %}
+            <form id="test" method="post" action="submit/">{% csrf_token %}
             상품명: <input name ='productname' type="text" value="">
             날짜: <input type="date" id='now_date'>
             <script>document.getElementById('now_date').valueAsDate = new Date();</script>
-            <input class="btn" type="submit" value="검색" onClick='return submit1(this.form);'>
+            <input class="btn" type="submit" value="검색">
+            <input type="checkbox" name="selected" value="0" >쿠팡</br>
+            <input type="checkbox" name="selected" value="1" >네이버</br>
+            <input type="checkbox" name="selected" value="2" >이마트</br>
+            <input type="checkbox" name="selected" value="3" >G마켓</br>
             </form>
         </div>
 

@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 
 
-def first(request): #아무것도 없는 첫화면
-    return render(request,'polls/first.html')
+def main_page(request): #아무것도 없는 첫화면
+    return render(request,'polls/main.html')
 
 
 def rain_condition(v):
@@ -27,12 +27,8 @@ def make_pretty(styler):
 
 def submit(request): 
     productname = request.POST.get('productname')
+    market_list = request.POST.getlist('selected')
 
-    ## 특정 위치의 배경색 바꾸기
-    def draw_color_cell(x,color):
-        color = f'background-color:{color}'
-        return color
- 
     data = {
         'year': [2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,1,1,1,1,1],
         'GDP rate': [2.8, 3.1, 3.0,2.8, 3.1, 3.0,2.8, 3.1, 3.0,2.8, 3.1, 3.0,2.8, 3.1, 3.0,2.8, 3.1, 3.0,2.8, 3.1, 3.0,1,1,1,1,1],
@@ -48,27 +44,21 @@ def submit(request):
         'hi9': [2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,1,1,1,1,1],
         'hi10': [2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,1,1,1,1,1],
         'hi11': [2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,2016, 2017, 2018,1,1,1,1,1],
-
-        
-        
     }
 
     EVEN_ROW_COLOR = "#00BFFF"
     #data0 = pd.read_csv("https://raw.githubusercontent.com/justin95214/MarketCurly-Moniterling_Recommand_System/main/test11.csv", encoding="utf8")
     data0 = pd.DataFrame(data)
-    data0.style.apply(draw_color_cell,color='#ff9090',subset=pd.IndexSlice[1,['GDP']])
+   
 
-    weather_df = pd.DataFrame(np.random.rand(10,2)*5,
-                          index=pd.date_range(start="2021-01-01", periods=10),
-                          columns=["Tokyo", "Beijing"])
+   
 
-
-    weather_df.loc["2021-01-04":"2021-01-08"].style.pipe(make_pretty)
+   
     #data0 = pd.DataFrame(data)
 
-    #data0 = data0.style.set_table_styles(
-    #[dict(selector='td', props='font-size : 5px; '),dict(selector='tr', props='font-size : 5px;'),dict(selector = 'tbody tr:nth-child(even)', props='background-color: #00BFFF;')]
-    #) 
+    data0 = data0.style.set_table_styles(
+    [dict(selector='td', props='font-size : 5px; '),dict(selector='tr', props='font-size : 5px;'),dict(selector = 'tbody tr:nth-child(even)', props='background-color: #00BFFF;')]
+    ) 
   
     #data0.style.applymap(draw_color_cell,color='#ff9090',subset=pd.IndexSlice[0:2,'GDP':'hi'])
 
@@ -84,7 +74,7 @@ def submit(request):
     
     request.session['test'] =productname
     
-    return render(request,'polls/main.html',{'productname':productname, 'df':weather_df.to_html()})
+    return render(request,'polls/main.html',{'productname':productname, 'df':data0.to_html()})
 def margin(request):
     conn = pymysql.connect(
     host='127.0.0.1',

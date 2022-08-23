@@ -63,21 +63,26 @@ path:hover{
     <title>Document</title>
 
     <script>
-        function submit1(frm) {
-
-
-
-
+        function submit1(form) {
+            var coubtn = $('[name=coupang]').is(':checked'); 
+            var navbtn = $('[name=naver]').is(':checked'); 
+            var ebtn = $('[name=emart]').is(':checked'); 
+            var gbtn = $('[name=gmarket]').is(':checked'); 
             frm.action = "/submit/";
 
-            frm.submit();
+            form.submit();
             return true;
         }
         function submit2(frm) {
             frm.action = "/margin/";
-            frm.submit();
+            
             return true;
         }
+
+        function btn(){
+            
+        }
+        
 
     </script>
 
@@ -174,6 +179,7 @@ path:hover{
         margin-left: 10px;
         margin-top: -55px;
     }
+    
 </style>
 </head>
 
@@ -203,7 +209,7 @@ path:hover{
     <img src="https://ifh.cc/g/0JqcHY.png"  />
 </div>
 <div class="left2">
-    카테고리별 상품 추천 가격 범위
+    카테고리별 상품 추천 가격 범위 {{coubtn}} {{navbtn}} {{ebtn}} {{gbtn}} 
 </div>
 <div class="right2">
     지역별 가격 추세
@@ -349,12 +355,17 @@ path:hover{
 
             타 E커머스 가격 비교 분포도
             </br>
-            <form id="test" method="post" action="">{% csrf_token %}
+            <form id="test" method="post" action="submit/">{% csrf_token %}
                 상품명: <input id="testpro" name='productname' type="text" value="">
 
                 날짜: <input type="date" id='now_date'>
                 <script>document.getElementById('now_date').valueAsDate = new Date();</script>
-                <input type="submit" value="검색" onClick='return submit1(this.form); '>
+                <input type="submit" value="검색">
+                <input type="checkbox" name="selected" value="Y"  >쿠팡
+            <input type="checkbox"  name="selected" value="Y"  >네이버
+            <input type="checkbox"  name="selected" value="Y"  >이마트
+            <input type="checkbox" name="selected" value="Y"  >G마켓</br>
+               
                 {{df| safe}}
             </form>
             
