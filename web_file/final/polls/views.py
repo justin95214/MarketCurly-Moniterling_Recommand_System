@@ -50,7 +50,7 @@ def read_total_data():
 def calc_city_avg(df, city_list):
     city_dict = {}
     for city in city_list:
-        mean_value = df['loc' == df[city]]['price'].mean()
+        mean_value = df['location' == df[city]]['price'].mean()
         city_dict[city] = mean_value
     
     return city_dict
