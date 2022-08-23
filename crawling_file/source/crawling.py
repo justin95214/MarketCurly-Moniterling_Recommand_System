@@ -126,14 +126,21 @@ class EmartCrawling(Crawling):
                         site = "Emart"
                         date = datetime.now()
                         date = date.strftime('%Y-%m-%d %H:%M:%S')
-                        # df.loc[name] = [date, name, price,
-                        #                 weight, kind, site, loc]
-                        print(f' product : {name} | price :{price}{unit_tx} | unit : \
-        {unit_price} | weight " {weight_root} | location: {loc}')
+                        df.loc[name] = [date, name, price,
+                                        weight, kind, site, loc]
                 except Exception as e:
-
                     print(str(e))
                     break
+
+        df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
+                  encoding='utf-8-sig', mode="w")
+        outlier_idx = self.get_outlier(
+            df=df, column='price', weight=1.5)
+
+        df.drop(outlier_idx, axis=0, inplace=True)
+        df.to_csv(f"{self.TABLE_NAME}_remove.csv",
+                  index=False, encoding="utf-8-sig", mode="a")
+        db.total(df)
         return super().crawling(db, keyword, total_page)
 
 
@@ -280,7 +287,7 @@ class NaverCrawling(Crawling):
 
         for i in itemList['shoppingResult']['products']:
             title = self.removeEmoji(i['productName'])
-            price = i['price']
+            price = int(i['price'])
             weight = cValue = kind = wordsW = location = ''
             location_list = []
             date = datetime.now()
@@ -336,11 +343,7 @@ class NaverCrawling(Crawling):
                     feature_dict[keyword], title)
 
             # print(f'## {title}\n{kind}')
-            try:
-                price = (int)((int)(price)/(float)(weight))
-            except:
-                pass
-
+            # price = int(price)
             df.loc[title] = [date, title, price, weight, kind, site, location]
         return df
 
@@ -447,8 +450,8 @@ class CoupangCrawling(Crawling):
                         a_li = word.split("KG")[0]
                     elif 'kg' in word:
                         a_li = word.split("kg")[0]
-                    elif 'g' in word:
-                        a_li = word.split("g")[0]
+                    # elif 'g' in word:
+                    #     a_li = word.split("g")[0]
 
                 # weight = a_li[0]
                 weight = re.sub(r'[^0-9,.]', '', str(a_li))
@@ -472,10 +475,9 @@ class CoupangCrawling(Crawling):
                 kind = dm.get_kind_feature(
                     feature_dict[keyword], name)
                 # location = get_feature_location(city_arr, name)
-                try:
-                    price = (int)((int)(price)/(float)(weight))
-                except:
-                    pass
+
+                price = int(price)
+
                 products_info = {
                     'date': date,
                     'title': name,
