@@ -1,10 +1,11 @@
+import numpy as np
 import pandas as pd
 import requests
 import json
 import time
 import re
 from fake_useragent import UserAgent
-from datetime import datetime
+from datetime import date, datetime
 from bs4 import BeautifulSoup as bs
 from bs4 import BeautifulSoup
 
@@ -25,12 +26,28 @@ class Crawling:
     def crawling(self, db, keyword, total_page):
         print(f'###\t{self.TABLE_NAME}\tcrawling end')
 
+    def get_outlier(self, df=None, column=None, weight=2.5):
+        # target 값과 상관관계가 높은 열을 우선적으로 진행
+        quantile_25 = df[column].quantile(0.25)
+        quantile_75 = df[column].quantile(0.75)
+
+        IQR = quantile_75 - quantile_25
+        IQR_weight = IQR*weight
+
+        lowest = quantile_25 - IQR_weight
+        highest = quantile_75 + IQR_weight
+        outlier_idx = df[column][(df[column] < lowest) |
+                                 (df[column] > highest)].index
+
+        return outlier_idx
+
 
 class EmartCrawling(Crawling):
     def crawling(self, db, keyword, total_page):
         ua = UserAgent()
         url = "https://emart.ssg.com/search.ssg?target=all&query="+keyword
-        result = []
+        df = pd.DataFrame(columns=['date', 'title', 'price',
+                                   'weight', 'kind', 'site', 'location'])
         i = 0
 
         while i <= total_page:
@@ -106,9 +123,13 @@ class EmartCrawling(Crawling):
                                         '삼겹살': pork_feature_arr, '김치': kimchi_feature_arr}
                         kind = dm.get_kind_feature(
                             feature_dict[keyword], name)
-                        print(f' product: {name} | kind: {kind}')
-                        # print(f' product : {name} | price :{price}{unit_tx} | unit : \
-        # {unit_price} | weight " {weight_root} | location: {loc}')
+                        site = "Emart"
+                        date = datetime.now()
+                        date = date.strftime('%Y-%m-%d %H:%M:%S')
+                        # df.loc[name] = [date, name, price,
+                        #                 weight, kind, site, loc]
+                        print(f' product : {name} | price :{price}{unit_tx} | unit : \
+        {unit_price} | weight " {weight_root} | location: {loc}')
                 except Exception as e:
 
                     print(str(e))
@@ -192,7 +213,6 @@ class GmarketCrawling(Crawling):
 
                         kind = dm.get_kind_feature(
                             feature_dict[keyword], item_name)
-                        map_dict = {}
                         location_list = []
 
                         weight_root = ""
@@ -204,7 +224,6 @@ class GmarketCrawling(Crawling):
                                     weight = m.split("KG")[0]
                                 weight = re.sub(r'[^0-9,.,~]', '', weight)
                                 weight_root = weight.split("~")[0] + 'kg'
-                            # print(m)
 
                             loc = "None"
 
@@ -218,17 +237,22 @@ class GmarketCrawling(Crawling):
                                 loc = place
                                 break
 
-                        item_price = item_price.replace(',', '')
+                        item_price = int(item_price.replace(',', ''))
                         date = datetime.now()
                         date = date.strftime('%Y-%m-%d %H:%M:%S')
                         site = "Gmarket"
-                        db.insertDB(date, item_name, item_price,
-                                    weight, kind, site, loc)
                         df.loc[item_name] = [date, item_name, item_price,
                                              weight, kind, site, loc]
 
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
+        outlier_idx = self.get_outlier(df=df, column='price', weight=1.5)
+
+        df.drop(outlier_idx, axis=0, inplace=True)
+        df.to_csv(f"{self.TABLE_NAME}_remove.csv",
+                  index=False, encoding="utf-8-sig", mode="a")
+        db.total(df)
+
         return super().crawling(db, keyword, total_page)
 
 
@@ -317,9 +341,7 @@ class NaverCrawling(Crawling):
             except:
                 pass
 
-            db.insertDB(date, title, price, weight, kind, site, location)
             df.loc[title] = [date, title, price, weight, kind, site, location]
-
         return df
 
     def makeRequestAndGetResponse(self, page, query):
@@ -382,6 +404,13 @@ class NaverCrawling(Crawling):
 
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
+        outlier_idx = self.get_outlier(df=df, column='price', weight=1.5)
+
+        df.drop(outlier_idx, axis=0, inplace=True)
+        df.to_csv(f"{self.TABLE_NAME}_remove.csv",
+                  index=False, encoding="utf-8-sig", mode="a")
+        db.total(df)
+
         return super().crawling(db, keyword, total_page)
 
 
@@ -398,10 +427,10 @@ class CoupangCrawling(Crawling):
                 site = "쿠팡"
                 kind = location = ""
                 location_list = []
-                prd_name = li.find('div', class_='name').text
+                name = li.find('div', class_='name').text
                 price = ''
                 a_li = 0
-                result = prd_name.split(' ')
+                result = name.split(' ')
                 for m in result:
                     location = "NONE"
                     location = dm.location(
@@ -441,11 +470,15 @@ class CoupangCrawling(Crawling):
                 price = price.replace(",", "")
 
                 kind = dm.get_kind_feature(
-                    feature_dict[keyword], prd_name)
-                # location = get_feature_location(city_arr, prd_name)
+                    feature_dict[keyword], name)
+                # location = get_feature_location(city_arr, name)
+                try:
+                    price = (int)((int)(price)/(float)(weight))
+                except:
+                    pass
                 products_info = {
                     'date': date,
-                    'name': prd_name,
+                    'title': name,
                     'price': price,
                     'weight': weight,
                     'kind': kind,
@@ -453,14 +486,15 @@ class CoupangCrawling(Crawling):
                     'location': location
                 }
                 products_link.append(products_info)
-                try:
-                    price = (int)((int)(price)/(float)(weight))
-                    db.insertDB(date, prd_name, price,
-                                weight, kind, site, location)
-                except:
-                    pass
 
         df = pd.DataFrame(products_link)
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
+        outlier_idx = self.get_outlier(df=df, column='price', weight=1.5)
+
+        df.drop(outlier_idx, axis=0, inplace=True)
+        df.to_csv(f"{self.TABLE_NAME}_remove.csv",
+                  index=False, encoding="utf-8-sig", mode="a")
+        db.total(df)
+
         return super().crawling(db, keyword, total_page)

@@ -20,8 +20,8 @@ def crawling_process(keyword='사과', total_page='1'):
     crawling_command1 = ['python', 'coupangCrawling.py', keyword, total_page]
     crawling_command2 = ['python', 'emartCrawling.py', keyword, total_page]
     crawling_command3 = ['python', 'gmarketCrawling.py', keyword, total_page]
-    # crawling_command4 = ['python', 'naverCrawling.py', keyword, total_page]
-    crawling_command4 = ['python', 'naverCrawling.py', keyword, '10']
+    crawling_command4 = ['python', 'naverCrawling.py', keyword, total_page]
+    # crawling_command4 = ['python', 'naverCrawling.py', keyword, '10']
     command_list = [crawling_command1,
                     crawling_command3, crawling_command4]
 

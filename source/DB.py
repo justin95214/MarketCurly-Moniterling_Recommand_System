@@ -1,10 +1,10 @@
-from importlib.metadata import metadata
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Table
 from xmlrpc.client import DateTime
+from datetime import datetime
 
 
 class DB:
@@ -43,3 +43,12 @@ class DB:
 
     def get_conn(self):
         return self.conn
+
+    def total(self, df):
+        date = datetime.now()
+        date = date.strftime('%Y-%m-%d %H:%M:%S')
+        tableName = "Total"
+        df.to_sql(tableName, self.conn, if_exists='append', index=False)
+        print(f'%%\t{tableName}\tDB INSERT TOTAL{date}')
+        df.to_sql(self.TALBE_NAME, self.conn, if_exists='append', index=False)
+        print(f'%%\t{self.TALBE_NAME}\tDB INSERT TOTAL{date}')
