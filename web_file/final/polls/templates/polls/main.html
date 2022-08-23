@@ -215,6 +215,27 @@ path:hover{
                 KOREA_PROVINCE_OBJECT = 'skorea_provinces_2018_geo';
 
             var SPECIAL_CITIES = ['서울특별시', '인천광역시', '대전광역시', '대구광역시', '부산광역시', '울산광역시', '광주광역시', '세종특별자치시', '제주특별자치도'];
+            var CITIES_DICT = {
+                "c-11":'서울특별시',
+                "c-21": '부산광역시',
+                "c-22": '대구광역시',
+                "c-23": '인천광역시',
+                "c-24": '광주광역시',
+                "c-25": '대전광역시',
+                "c-26": '울산광역시',
+                "c-29": '세종특별자치시',
+                "c-31": '경기도',
+                "c-32": '강원도',
+                "c-33": '충청북도',
+                "c-34": '충청남도',
+                "c-35": '전라북도',
+                "c-36": '전라남도',
+                "c-37": '경상북도',
+                "c-38": '경상남도',
+                "c-39": '제주특별자치도'
+            };
+
+
             var projection, path, svg,
                 geoJson, features, bounds, center,
                 map, places;
@@ -248,7 +269,7 @@ path:hover{
                     var tooltip = d3.select("body")
                     .append("div")
                     .style('position', 'absolute')
-                    
+                    .attr('class', 'tooltip')
                     .style("z-index", "10")
                     .style("visibility", "hidden")
                     .text("{지역} 가격 <br>100000")
@@ -263,13 +284,14 @@ path:hover{
                         .enter().append("path")
                         .attr("class", function (d) {
                             console.log(d);
-                            return "municipality c " + d.properties.code;
+                            return "c-" + d.properties.code;
                         })
                         .attr("d", path)
                         .on("click", province_clicked_event)
                         .on('mouseover', function () { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
+                            tooltip.text = `${CITIES_DICT[this.attr.class]}`;
                             return tooltip.style("visibility", "visible"); 
                         })
                         .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
