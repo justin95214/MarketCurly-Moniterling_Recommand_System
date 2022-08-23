@@ -265,7 +265,7 @@ path:hover{
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
                     .attr("r", "2px")
                     .attr("fill", "red")
-                    .on('onmouseover', spot_mouseover)
+                    .on('mouseover', spot_mouseover)
                     .on('click', spot_clicked_event)
                     
                     .transition()
