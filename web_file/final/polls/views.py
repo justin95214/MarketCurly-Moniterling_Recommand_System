@@ -47,6 +47,14 @@ def read_total_data():
     item_df = pd.DataFrame(item_list, columns=[['date','title','price','weight','kind','site','location']])
     return item_df
 
+def calc_city_avg(df, city_list):
+    city_dict = {}
+    for city in city_list:
+        mean_value = df[df[city]]['price'].mean()
+        city_dict[city] = mean_value
+    
+    return city_dict
+
 def submit(request): 
     productname = request.POST.get('productname') #상품명
     date = request.POST.get('date') #날짜
@@ -85,27 +93,40 @@ def submit(request):
     # data0 = pd.DataFrame(data)
    
 
-    data0 = read_total_data()
     # data0 = filter(market_list, data0)
     ###
     #data0 = pd.DataFrame(data)
-  
     #data0.style.applymap(draw_color_cell,color='#ff9090',subset=pd.IndexSlice[0:2,'GDP':'hi'])
-
-   
     # data0 = data0.style.set_table_styles(
     #  [{'selector': 'td:hover',
     #      'props': [('font-size', '25px')]}]
     # )  
-    
-
-    #data0 = pd.read_csv("test11.csv", encoding="utf8")
     #context = 'df':data0.to_html()
-    
+    data0 = read_total_data()
+
+    city_list = [
+                '서울특별시',
+                '부산광역시',
+                '대구광역시',
+                '인천광역시',
+                '광주광역시',
+                '대전광역시',
+                '울산광역시',
+                '세종특별자치시',
+                '경기도',
+                '강원도',
+                '충청북도',
+                '충청남도',
+                '전라북도',
+                '전라남도',
+                '경상북도',
+                '경상남도',
+                '제주특별자치도'
+            ];
     request.session['test'] = productname
-    temp = {'a':1, 'b':2, 'c':3}
+    city_values = calc_city_avg(data0, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'city_values':temp, 'df':data0.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':data0.to_html(),'market_list':market_list})
 
 def margin(request):
     conn = pymysql.connect(
