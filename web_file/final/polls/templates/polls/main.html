@@ -300,7 +300,7 @@ path:hover{
                         .on('mouseover', function () { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            console.log(`### ${JSON.stringify(this.dataset)}`);
+                            console.log(`### ${typeof(this)}`);
                             tooltip.text = `${CITIES_DICT[this.attr.class]}`;
                             return tooltip.style("visibility", "visible"); 
                         })
