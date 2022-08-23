@@ -260,10 +260,13 @@ path:hover{
 
                 var tooltip = d3.select("body")
                     .append("div")
-                    .style("position", circles.position)
+                    .style("left","100px;")
+                    .style("top","100px;")
                     .style("z-index", "10")
                     .style("visibility", "hidden")
                     .text("a simple tooltip")
+
+                
 
                 var circles = map.selectAll("circle")
                     .data(spots).enter()
@@ -279,6 +282,10 @@ path:hover{
                     
                     .transition()
                     .ease(d3.easeElastic);
+
+                var posx = map.selectAll.attr.attr("cx", function (d) { return projection([d.lon, d.lat])[0]; })
+                var posy = map.selectAll.attr.attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
+                
             }
 
             function spot_clicked_event(d) {
