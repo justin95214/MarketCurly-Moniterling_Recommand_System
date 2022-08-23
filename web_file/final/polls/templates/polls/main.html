@@ -63,8 +63,16 @@ path:hover{
     <title>Document</title>
 
     <script>
-
-        
+        function submit1(frm) {
+            frm.action = "/submit/";
+            frm.submit();
+            return true;
+        }
+        function submit2(frm) {
+            frm.action = "/margin/";
+            frm.submit();
+            return true;
+        }
 
     </script>
 
@@ -362,7 +370,7 @@ path:hover{
 
             타 E커머스 가격 비교 분포도
             </br>
-            <form id="test" method="post" action="submit/">{% csrf_token %}
+            <form id="test" method="post" action="">{% csrf_token %}
                 상품명: <input id="testpro" name='productname' type="text" value="">
 
                 날짜: <input name ="date" type="date" id='now_date'>
@@ -386,9 +394,9 @@ path:hover{
         
         <div class="left3">
             타 E커머스 가격 비교 마진율 현황</br>
-            <form id="test2" method="post" action="margin/">{% csrf_token %}
+            <form id="test2" method="post" action="">{% csrf_token %}
                 상품 공급가: <input type="text" name="margin"> (100g or 1kg 당)
-                <input class="btn" type="submit" value="검색">
+                <input class="btn" type="submit" value="검색" onClick='return submit2(this.form);'>
             </form>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
             <div style="width: 500px; height:500px; margin: 15px;">
