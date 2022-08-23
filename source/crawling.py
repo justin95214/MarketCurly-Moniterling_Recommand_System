@@ -23,7 +23,7 @@ class Crawling:
         print(f'###\t{self.TABLE_NAME}\tpage', page_num)
 
     def crawling(self, db, keyword, total_page):
-        pass
+        print(f'###\t{self.TABLE_NAME}\tcrawling end')
 
 
 class EmartCrawling(Crawling):
@@ -113,6 +113,7 @@ class EmartCrawling(Crawling):
 
                     print(str(e))
                     break
+        return super().crawling(db, keyword, total_page)
 
 
 class GmarketCrawling(Crawling):
@@ -228,6 +229,7 @@ class GmarketCrawling(Crawling):
 
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
+        return super().crawling(db, keyword, total_page)
 
 
 class NaverCrawling(Crawling):
@@ -380,6 +382,7 @@ class NaverCrawling(Crawling):
 
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
+        return super().crawling(db, keyword, total_page)
 
 
 class CoupangCrawling(Crawling):
@@ -460,3 +463,4 @@ class CoupangCrawling(Crawling):
         df = pd.DataFrame(products_link)
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
+        return super().crawling(db, keyword, total_page)
