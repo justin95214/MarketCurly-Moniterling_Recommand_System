@@ -266,7 +266,7 @@ path:hover{
                     .attr("r", "2px")
                     .attr("fill", "red")
                     .on('click', spot_clicked_event)
-                    .on("mouseover", spot_mouseover)
+                    .attr("onmouseover", spot_mouseover)
                     .transition()
                     .ease(d3.easeElastic);
             }
