@@ -8,8 +8,8 @@ from crawling import CoupangCrawling
 warnings.filterwarnings("ignore")
 
 TABLE_NAME = 'coupang'
-ENGINE_URL = 'mysql+pymysql://awsusr:12345678@awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com:3306/daduckDB?charset=utf8mb4'
-# ENGINE_URL = 'mysql+pymysql://root:root@localhost:3306/kurly?charset=utf8mb4'
+#ENGINE_URL = 'mysql+pymysql://awsusr:12345678@awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com:3306/daduckDB?charset=utf8mb4'
+ENGINE_URL = 'mysql+pymysql://root:root@localhost:3306/kurly?charset=utf8mb4'
 
 db = DB(TABLE_NAME, ENGINE_URL)
 conn = db.get_conn()

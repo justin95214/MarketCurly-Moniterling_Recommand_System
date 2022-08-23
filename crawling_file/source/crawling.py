@@ -66,10 +66,11 @@ class EmartCrawling(Crawling):
                 html = bs(res.text, 'lxml')
                 # print(html)
                 cont0 = html.find('div', {'class': 'tmpl_itemlist'})
-                cont1 = cont0.find(
-                    'ul', {'class': 'cunit_thmb_lst cunit_thmb_lst4 cunit_thmb_w1000'})
+                
                 # print(cont)
                 try:
+                    cont1 = cont0.find(
+                    'ul', {'class': 'cunit_thmb_lst cunit_thmb_lst4 cunit_thmb_w1000'})
                     items = cont1.findAll('li', {'class': 'cunit_t232'})
                     for item0 in items:
                         item1 = item0.find('div', {'class': 'cunit_info'})
@@ -100,8 +101,7 @@ class EmartCrawling(Crawling):
                                     weight = m.split("kg")[0]
                                 except:
                                     weight = m.split("KG")[0]
-                                weight = re.sub(r'[^0-9,.,~]', '', weight)
-                                weight_root = weight.split("~")[0] + 'kg'
+                                weight = re.sub(r'[^0-9,.]', '', weight)
                             # print(m)
 
                             loc = "None"
@@ -127,20 +127,21 @@ class EmartCrawling(Crawling):
                         site = "Emart"
                         date = datetime.now()
                         date = date.strftime('%Y-%m-%d %H:%M:%S')
-                        df.loc[name] = [date, name, price,
-                                        weight, kind, site, loc]
+                        if price != "" and weight != "" and loc != "":
+                            df.loc[name] = [date, name, int(price),
+                                            float(weight), kind, site, loc]
                 except Exception as e:
                     print(str(e))
                     break
 
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
-        outlier_idx = self.get_outlier(
-            df=df, column='price', weight=1.5)
+        # outlier_idx = self.get_outlier(
+        #     df=df, column='price', weight=1.5)
 
-        df.drop(outlier_idx, axis=0, inplace=True)
-        df.to_csv(f"{self.TABLE_NAME}_remove.csv",
-                  index=False, encoding="utf-8-sig", mode="a")
+        # df.drop(outlier_idx, axis=0, inplace=True)
+        # df.to_csv(f"{self.TABLE_NAME}_remove.csv",
+        #           index=False, encoding="utf-8-sig", mode="a")
         db.total(df)
         return super().crawling(db, keyword, total_page)
 
@@ -206,7 +207,6 @@ class GmarketCrawling(Crawling):
                         item_price = item_tmp_price.find(
                             'strong', {'class': 'text text__value'}).text
 
-                        weight = 'None'
                         candid_name = list(item_name.split(" "))
                         # print(candid_name)
 
@@ -223,7 +223,7 @@ class GmarketCrawling(Crawling):
                             feature_dict[keyword], item_name)
                         location_list = []
 
-                        weight_root = ""
+                        
                         weight = ""
                         for m in candid_name:
                             if 'kg' in m or 'KG' in m:
@@ -231,9 +231,9 @@ class GmarketCrawling(Crawling):
                                     weight = m.split("kg")[0]
                                 except:
                                     weight = m.split("KG")[0]
-                                weight = re.sub(r'[^0-9,.,~]', '', weight)
-                                weight_root = weight.split("~")[0] + 'kg'
-
+                                weight = re.sub(r'[^0-9,.]', '', weight)
+                            
+                            
                             loc = "None"
 
                             loc = dm.location(
@@ -250,13 +250,13 @@ class GmarketCrawling(Crawling):
                         date = datetime.now()
                         date = date.strftime('%Y-%m-%d %H:%M:%S')
                         site = "Gmarket"
-                        df.loc[item_name] = [date, item_name, item_price,
-                                             weight, kind, site, loc]
+                        if weight != "" and weight != None and item_price != "" :
+                            df.loc[item_name] = [date, item_name, item_price, weight, kind, site, loc]
 
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
                   encoding='utf-8-sig', mode="w")
         outlier_idx = self.get_outlier(df=df, column='price', weight=1.5)
-
+        
         df.drop(outlier_idx, axis=0, inplace=True)
         df.to_csv(f"{self.TABLE_NAME}_remove.csv",
                   index=False, encoding="utf-8-sig", mode="a")
@@ -346,7 +346,8 @@ class NaverCrawling(Crawling):
 
             # print(f'## {title}\n{kind}')
             # price = int(price)
-            df.loc[title] = [date, title, price, weight, kind, site, location]
+            if location != " " and location != "" and price != "":
+                df.loc[title] = [date, title, price, weight, kind, site, location]
         return df
 
     def makeRequestAndGetResponse(self, page, query):
@@ -429,7 +430,7 @@ class CoupangCrawling(Crawling):
             soup = BeautifulSoup(response.content, 'html.parser')
             products_lis = soup.find('ul', id='productList').find_all('li')
             for li in products_lis:
-                site = "쿠팡"
+                site = "Coupang"
                 kind = location = ""
                 location_list = []
                 name = li.find('div', class_='name').text
@@ -489,7 +490,8 @@ class CoupangCrawling(Crawling):
                     'site': site,
                     'location': location
                 }
-                products_link.append(products_info)
+                if products_info['weight'] != 0 and products_info['location'] != "":
+                    products_link.append(products_info)
 
         df = pd.DataFrame(products_link)
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,
