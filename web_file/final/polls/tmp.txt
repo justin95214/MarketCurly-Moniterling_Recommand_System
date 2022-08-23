@@ -1,0 +1,27 @@
+# Initialize example dataframe
+data = {
+    'Week': [1, 2, 3, 4, 5, 1, 2, 3, 4, 5],
+    'Color': ['Green', 'Red', 'Green', 'Yellow', 'Red', 'Green', 'Yellow', 'Red', 'Yellow', 'Red'],
+    'Part': ['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'],
+    'Value': [10, -20, 20, -20, -10, 10, -5, -8, -9, -10]
+}
+df = pd.DataFrame(data)
+
+# Merge 'Color' and 'Value' columns into one single column
+df['Value'] = list(zip(df.Color, df.Value))
+
+# Perform pivot operation
+df = df.pivot(index='Part', columns='Week', values='Value')
+
+# Split into two dataframes: a colors dataframe and a numerical values dataframe
+color_df = df.applymap(lambda x: x[0])
+value_df = df.applymap(lambda x: x[1])
+
+# Transform dataframe with colors into formatting commands
+color_df = color_df.applymap(lambda x: f'background-color: {x.lower()}')
+
+# Apply color styling to values dataframe
+styled_df = value_df.style.apply(lambda x: color_df, axis=None)
+#styled_df.to_excel('output.xlsx')
+
+styled_df
