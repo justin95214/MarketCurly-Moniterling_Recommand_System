@@ -12,9 +12,7 @@ def main_page(request): #아무것도 없는 첫화면
 
 
 def filter(market_list_input, df):
-    print(df.columns)
-    print(df.head(10))
-    """
+
     print(market_list_input)
     # 필터 마켓 리스트
     result_df = pd.DataFrame()
@@ -27,7 +25,7 @@ def filter(market_list_input, df):
                      columns = 'unit_price',    # 열 위치에 들어갈 열
                      values = 'price',     # 데이터로 사용할 열
                      aggfunc = 'count')
-    """
+ 
     return df
 
 
