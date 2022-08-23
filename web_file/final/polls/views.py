@@ -27,7 +27,7 @@ def make_pretty(styler):
 
 def read_total_data():
     conn = pymysql.connect(
-    host='127.0.0.1',
+    host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
     user='awsusr',
     password='12345678',
     db='daduckDB')  
@@ -98,7 +98,7 @@ def submit(request):
 
 def margin(request):
     conn = pymysql.connect(
-    host='127.0.0.1',
+    host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
     user='awsusr',
     password='12345678',
     db='daduckDB')
