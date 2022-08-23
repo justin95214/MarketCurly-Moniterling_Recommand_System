@@ -274,6 +274,7 @@ path:hover{
                     .attr("r", "2px")
                     .attr("fill", "red")
                     .on('mouseover', function(){return tooltip.style("visibility", "visible");})
+                    .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
                     .on('click', spot_clicked_event)
                     
                     .transition()
