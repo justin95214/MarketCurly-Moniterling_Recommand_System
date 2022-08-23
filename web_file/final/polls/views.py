@@ -18,6 +18,7 @@ def filter(market_list_input, df):
     result_df = pd.DataFrame()
     for market in market_list_input:
         tmp_df = df[df['site'] == market].copy()
+        print(tmp_df)
         result_df = pd.concat([result_df, tmp_df], ignore_index= True)
 
     print(result_df['price'].values.tolist())
