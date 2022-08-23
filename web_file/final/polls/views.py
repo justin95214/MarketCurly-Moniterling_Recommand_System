@@ -20,6 +20,8 @@ def filter(market_list_input, df):
         tmp_df = df[df['site'] == market].copy()
         result_df = pd.concat([result_df, tmp_df], ignore_index= True)
 
+    tmp_df['unit_price'] = result_df['price']/result_df['weight']
+
     tmp_df = pd.pivot_table(result_df,                # 피벗할 데이터프레임
                      index = 'location',    # 행 위치에 들어갈 열
                      columns = 'unit_price',    # 열 위치에 들어갈 열
@@ -39,7 +41,7 @@ def read_total_data():
     curs = conn.cursor()
 
     #쿠팡
-    curs.execute("SELECT * FROM Total") 
+    curs.execute("SELECT * FROM Total WHERE price >0 and weight>0") 
     item_list = curs.fetchall()
     item_df = pd.DataFrame(item_list, columns=[['date','title','price','weight','kind','site','location']])
     return item_df
