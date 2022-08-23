@@ -213,7 +213,7 @@ path:hover{
 
             function create(callback) {
                 HEIGHT = 500;
-                        WIDTH = 800;
+                WIDTH = 800;
 
                 console.log('Map scale', { 'height': HEIGHT, 'width': WIDTH });
 
@@ -260,8 +260,9 @@ path:hover{
 
                 var tooltip = d3.select("body")
                     .append("div")
-                    .style("left","100px;")
-                    .style("top","100px;")
+                    .style('position', 'absolute')
+                    .style('left', d3.event.dx + "px")
+                    .style('top', d3.event.dy + "px")
                     .style("z-index", "10")
                     .style("visibility", "hidden")
                     .text("a simple tooltip")
@@ -276,8 +277,8 @@ path:hover{
                     .attr("cy", function (d) { return projection([d.lon, d.lat])[1]; })
                     .attr("r", "5px")
                     .attr("fill", "red")
-                    .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-                    .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+                    .on('mouseover', function() { tooltip.style("display", null); })
+                    .on("mouseout", function() { tooltip.style("display", "none"); })
                     .on('click', spot_clicked_event)
                     
                     .transition()
