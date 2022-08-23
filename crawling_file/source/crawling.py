@@ -93,6 +93,7 @@ class EmartCrawling(Crawling):
                         location_list = []
                         candid_name = list(name.split(" "))
 
+                        weight = ''
                         for m in candid_name:
                             if 'kg' in m or 'KG' in m:
                                 try:
@@ -223,6 +224,7 @@ class GmarketCrawling(Crawling):
                         location_list = []
 
                         weight_root = ""
+                        weight = ""
                         for m in candid_name:
                             if 'kg' in m or 'KG' in m:
                                 try:
