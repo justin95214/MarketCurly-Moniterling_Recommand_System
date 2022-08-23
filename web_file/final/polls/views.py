@@ -103,8 +103,9 @@ def submit(request):
     #context = 'df':data0.to_html()
     
     request.session['test'] = productname
+    temp = {'a':1, 'b':2, 'c':3}
     
-    return render(request,'polls/main.html',{'productname':productname, 'df':data0.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, 'temp':temp, 'df':data0.to_html(),'market_list':market_list})
 
 def margin(request):
     conn = pymysql.connect(
