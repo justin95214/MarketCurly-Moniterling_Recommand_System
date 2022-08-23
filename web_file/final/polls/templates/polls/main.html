@@ -300,7 +300,7 @@ path:hover{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            tooltip.text = `${CITIES_DICT['c-' + d.properties.code]}`;
+                            tooltip.text(`${CITIES_DICT['c-' + d.properties.code]}`);
                             return tooltip.style("visibility", "visible"); 
                         })
                         .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
