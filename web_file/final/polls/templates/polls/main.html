@@ -260,10 +260,10 @@ path:hover{
 
                 var tooltip = d3.select("body")
                     .append("div")
-                    .style("position", "absolute")
+                    .style("position", circles)
                     .style("z-index", "10")
                     .style("visibility", "hidden")
-                    .text("a simple tooltip");
+                    .text("a simple tooltip")
 
                 var circles = map.selectAll("circle")
                     .data(spots).enter()
