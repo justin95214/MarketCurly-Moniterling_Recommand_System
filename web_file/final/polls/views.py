@@ -172,7 +172,7 @@ def submit(request):
     print(market_list)
 
     a = market_list[0]
-        
+    print(a)   
     conn = pymysql.connect(
     host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
     user='awsusr',
