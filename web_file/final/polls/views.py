@@ -69,7 +69,7 @@ def read_total_data():
 
 
 def calc_city_avg(df, city_list):
-    city_dict = {}
+    price_list = []
     for city in city_list:
         total = 0
         count = 0
@@ -83,9 +83,9 @@ def calc_city_avg(df, city_list):
             mean_value = total / count
         temp = f'"{city}"'
         temp = temp[1:-1]
-        city_dict[temp] = mean_value
+        price_list.append(mean_value)
     
-    return city_dict
+    return price_list
 
 def submit(request): 
     productname = request.POST.get('productname') #상품명
@@ -135,23 +135,25 @@ def submit(request):
     request.session['test'] = productname
 
     data = read_total_data()
-    city_list = ["서울특별시"
-"부산광역시",
-"대구광역시",
-"인천광역시",
-"광주광역시",
-"대전광역시",
-"울산광역시",
-"세종특별자치시",
-"경기도",
-"강원도",
-"충청북도",
-"충청남도",
-"전라북도",
-"전라남도",
-"경상북도",
-"경상남도",
-"제주특별자치도"]
+    city_list = [
+        "서울특별시",
+        "부산광역시",
+        "대구광역시",
+        "인천광역시",
+        "광주광역시",
+        "대전광역시",
+        "울산광역시",
+        "세종특별자치시",
+        "경기도",
+        "강원도",
+        "충청북도",
+        "충청남도",
+        "전라북도",
+        "전라남도",
+        "경상북도",
+        "경상남도",
+        "제주특별자치도"
+    ]
     # temp_list = []
     # for market in market_list:
     #     temp = None
@@ -162,9 +164,9 @@ def submit(request):
 
     # print(temp_list)
     # filter_data = pd.concat(temp_list, axis = 0)
-    city_values = calc_city_avg(data, city_list)
+    price_list = calc_city_avg(data, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':data.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, 'city_list':city_list, 'price_list':price_list, 'df':data.to_html(),'market_list':market_list})
 
 def margin(request):
     conn = pymysql.connect(
