@@ -171,7 +171,7 @@ def submit(request):
     market_list = request.POST.getlist('selected') 
     print(market_list)
 
-    a = market_list[0].split(']')[0].split('[')[1].text
+    a = market_list[0].text.split(']')[0].split('[')[1]
         
     conn = pymysql.connect(
     host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
