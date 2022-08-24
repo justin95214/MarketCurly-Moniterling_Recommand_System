@@ -55,13 +55,13 @@ def calc_city_avg(df, city_list):
     for city in city_list:
         total = 0
         count = 0
-        for temp in df:
-            print(temp)
-            if temp['location'] == city:
-                if temp['price'].isdigit():
-                    total += temp['price']
+        for index, row in df.iterrows():
+            print(row)
+            if row['location'] == city:
+                if row['price'].isdigit():
+                    total += row['price']
                     count += 1
-        print(temp['location'], total)
+        print(row['location'], total)
         mean_value = total / count
         city_dict[city] = mean_value
     
