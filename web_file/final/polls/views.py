@@ -68,7 +68,16 @@ def submit(request):
     productname = request.POST.get('productname') #상품명
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
-
+    a =0
+    for i in market_list:
+        if (market_list[i] =="Naver"):
+            a = market_list[i]
+        elif(market_list[i] == "Coupang"):
+            b = market_list[i]
+        elif(market_list[i] == "Gmarket"):
+            c = market_list[i]
+    
+        
     conn = pymysql.connect(
     host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
     user='awsusr',
@@ -78,8 +87,9 @@ def submit(request):
     curs = conn.cursor()
 
   
-    #curs.execute("select * from Total where DATE(%s)",date) #상품명,
-    curs.execute("select * from kimchi where TITLE LIKE '%김치%'")
+    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%%' and DATE(%s) and SITE(%s)" , productname, date,a )
+    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%%' and DATE(%s) and SITE(%s)" , productname, date,b )
+    #curs.execute("select * from  where TITLE LIKE '%김치%'")
     item_date = curs.fetchall()
     print(item_date)
     
