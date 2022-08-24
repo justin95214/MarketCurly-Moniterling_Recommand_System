@@ -17,6 +17,11 @@
     font-family: 'Noto Sans KR', sans-serif;
     font-size : 15px;
     }
+    input.date{
+        width:10px;
+        height:10px;
+
+    }
     path{
     fill: gainsboro;
     stroke: white;
@@ -311,7 +316,6 @@ div.df_style{
 
                     console.log("center", center);
                     console.log("scale", scale);
-                    var FULL = "{{city_values}}"; 
                     // var cityname = tooltip.text(`${CITIES_DICT['c-' + d.properties.code]}`);
 
                     map.selectAll("path")
@@ -326,7 +330,12 @@ div.df_style{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            let temp = 'c-' + d.properties.code;
+                            var FULL = "{{city_values | safe}}";
+                            FULL = JSON.parse(FULL);
+                            console.log(typeof(FULL));
+                            var temp = 'c-' + String(d.properties.code);
+            
+                            console.log(FULL);
                             tooltip.text(`${CITIES_DICT[temp]} : ${FULL[CITIES_DICT[temp]]}`);
                             return tooltip.style("visibility", "visible"); 
                         })
@@ -431,7 +440,7 @@ div.df_style{
             <form id="test" method="post" action="">{% csrf_token %}
                 상품명: <input id="testpro" name='productname' type="text" value="">
 
-                날짜: <input name ="date" type="date" id='now_date'>
+                날짜: <input class="date" name ="date" type="date" id='now_date'>
                 <script>document.getElementById('now_date').valueAsDate = new Date();</script>
                 <input class="btn" type="submit" value="검색" onClick='return submit1(this.form);'>
                 <input type="checkbox" name="selected" value="Coupang"  >쿠팡
