@@ -170,19 +170,8 @@ def submit(request):
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
     print(market_list)
-    a = ""
-    market_list.split("'","")
-    market_list.split("[")
-    market_list.split("]")
-    for i in market_list:
-        if (market_list[i] =="Naver"):
-            a = market_list[i]
-        elif(market_list[i] == "Coupang"):
-            a = market_list[i]
-        elif(market_list[i] == "Gmarket"):
-            a = market_list[i]
-       
-        print(a)
+
+    a = market_list[0].split(']')[0].split('[')[1].text
         
     conn = pymysql.connect(
     host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
