@@ -183,7 +183,7 @@ def submit(request):
 
   
 
-    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%(%s)%' and DATE(%s) and SITE(%s)" , productname, date,a )
+    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%사과%' and DATE(%s) and SITE(%s)" , date,a )
   
     #curs.execute("select * from  where TITLE LIKE '%김치%'")
 
