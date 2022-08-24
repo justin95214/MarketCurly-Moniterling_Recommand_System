@@ -78,8 +78,8 @@ def submit(request):
     curs = conn.cursor()
 
   
-    curs.execute("select * from Total where DATE(%s)",date) #상품명,
-   
+    #curs.execute("select * from Total where DATE(%s)",date) #상품명,
+    curs.execute("select * from Total where TITLE LIKE '%김치%")
     item_date = curs.fetchall()
     print(item_date)
     
