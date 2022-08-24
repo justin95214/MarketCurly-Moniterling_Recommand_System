@@ -9,9 +9,9 @@
 <style>
    input[type="checkbox"]{
 
-width: 30px; /*Desired width*/
+width: 20px; /*Desired width*/
 
-height: 30px; /*Desired height*/
+height: 20px; /*Desired height*/
 
 
 }
@@ -25,8 +25,8 @@ height: 30px; /*Desired height*/
     font-size : 15px;
     }
     input.date{
-        width:50px;
-        height:20px;
+        width:100px;
+        height:30px;
 
     }
     path{
@@ -338,7 +338,7 @@ div.df_style{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            var FULL = "{{city_values | safe}}";
+                            var FULL = '{{city_values | safe}}';
                             FULL = JSON.parse(FULL);
                             console.log(typeof(FULL));
                             var temp = 'c-' + String(d.properties.code);
