@@ -171,16 +171,16 @@ def submit(request):
     market_list = request.POST.getlist('selected') 
     print(market_list)
     for i in market_list:
-        if (market_list[i] =="['Naver']"):
+        if (market_list[i] ==['Naver']):
             a = market_list[i]
-        elif(market_list[i] == "['Coupang']"):
+        elif(market_list[i] == ['Coupang']):
             a = market_list[i]
-        elif(market_list[i] == "['Gmarket']"):
+        elif(market_list[i] == ['Gmarket']):
             a = market_list[i]
         a = a.split("'","")
         a = a.split("[")
         a = a.split("]")
-    
+        print(a)
         
     conn = pymysql.connect(
     host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
