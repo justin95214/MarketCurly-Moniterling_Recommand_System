@@ -141,6 +141,8 @@ def submit(request):
             if row['location'] == market:
                 temp = data.iloc[index]
                 temp_list.append(temp)
+                
+    print(temp_list)
     filter_data = pd.concat(temp_list, axis = 0)
     city_values = calc_city_avg(filter_data, city_list)
     
