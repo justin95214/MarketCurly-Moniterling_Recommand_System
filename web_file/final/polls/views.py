@@ -170,6 +170,7 @@ def submit(request):
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
     print(market_list)
+    a = ""
     a = a.split("'","")
     a = a.split("[")
     a = a.split("]")
