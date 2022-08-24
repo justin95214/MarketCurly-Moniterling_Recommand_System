@@ -6,7 +6,7 @@ import pymysql
 import re
 import numpy as np
 import pandas as pd
-from pivot  import pivot
+from pivot import make_pivot, make_heatmap, make_color
 
 def main_page(request): #아무것도 없는 첫화면
     city_values = {
