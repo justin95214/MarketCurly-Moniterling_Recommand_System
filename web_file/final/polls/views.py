@@ -48,6 +48,7 @@ def read_total_data():
     item_df = pd.DataFrame(item_list, columns=[['date','title','price','weight','kind','site','location']])
     return item_df
 
+
 def calc_city_avg(df, city_list):
     city_dict = {}
     print('test', df['location'])
@@ -98,8 +99,6 @@ def submit(request):
     data0 = value_df.style.apply(lambda x: color_df, axis=None)
     #styled_df.to_excel('output.xlsx')
 
-
-
     EVEN_ROW_COLOR = "#00BFFF"
     #data0 = pd.read_csv("https://raw.githubusercontent.com/justin95214/MarketCurly-Moniterling_Recommand_System/main/test11.csv", encoding="utf8")
     # data0 = pd.DataFrame(data)
@@ -114,31 +113,14 @@ def submit(request):
     #      'props': [('font-size', '25px')]}]
     # )  
     #context = 'df':data0.to_html()
-    data0 = read_total_data()
-
-    city_list = [
-                '서울특별시',
-                '부산광역시',
-                '대구광역시',
-                '인천광역시',
-                '광주광역시',
-                '대전광역시',
-                '울산광역시',
-                '세종특별자치시',
-                '경기도',
-                '강원도',
-                '충청북도',
-                '충청남도',
-                '전라북도',
-                '전라남도',
-                '경상북도',
-                '경상남도',
-                '제주특별자치도'
-            ];
     request.session['test'] = productname
-    city_values = calc_city_avg(data0, city_list)
+
+    data = read_total_data()
+    city_list = ['서울특별시','부산광역시','대구광역시','인천광역시','광주광역시','대전광역시','울산광역시','세종특별자치시','경기도','강원도','충청북도','충청남도','전라북도','전라남도','경상북도','경상남도','제주특별자치도']
+    filter_data = data.loc[df['location'] in market_list]
+    city_values = calc_city_avg(filter_data, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':data0.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':filter_data.to_html(),'market_list':market_list})
 
 def margin(request):
     conn = pymysql.connect(
