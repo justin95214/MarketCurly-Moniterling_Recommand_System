@@ -8,8 +8,25 @@ import pandas as pd
 
 
 def main_page(request): #아무것도 없는 첫화면
-    city_list = ['서울특별시','부산광역시','대구광역시','인천광역시','광주광역시','대전광역시','울산광역시','세종특별자치시','경기도','강원도','충청북도','충청남도','전라북도','전라남도','경상북도','경상남도','제주특별자치도']
-    city_values = calc_city_avg(pd.DataFrame(), city_list)
+    city_values = {
+        '서울특별시':0,
+        '부산광역시':0,
+        '대구광역시':0,
+        '인천광역시':0,
+        '광주광역시':0,
+        '대전광역시':0,
+        '울산광역시':0,
+        '세종특별자치시':0,
+        '경기도':0,
+        '강원도':0,
+        '충청북도':0,
+        '충청남도':0,
+        '전라북도':0,
+        '전라남도':0,
+        '경상북도':0,
+        '경상남도':0,
+        '제주특별자치도':0
+    }
     return render(request, 'polls/main.html', {'city_values':city_values})
 
 
@@ -53,8 +70,6 @@ def read_total_data():
 
 def calc_city_avg(df, city_list):
     city_dict = {}
-    print('test', df['location'])
-    print('test', df[df['location'] == '서울특별시'])
     for city in city_list:
         total = 0
         count = 0
