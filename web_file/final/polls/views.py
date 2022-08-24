@@ -56,7 +56,7 @@ def calc_city_avg(df, city_list):
         total = 0
         count = 0
         for temp in df:
-            print(type(temp['location']), temp['location'])
+            print(temp['location'])
             if temp['location'] == city:
                 if temp['price'].isdigit():
                     total += temp['price']
