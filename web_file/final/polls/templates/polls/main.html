@@ -338,13 +338,16 @@ div.df_style{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            var FULL = '{{city_values | safe}}';
-                            FULL = JSON.parse(FULL);
-                            console.log(typeof(FULL));
+                            let city_list = "{{city_list | safe}}";
+                            let price_list = "{{price_list | safe}}";
                             var temp = 'c-' + String(d.properties.code);
-            
-                            console.log(FULL);
-                            tooltip.text(`${CITIES_DICT[temp]} : ${FULL[CITIES_DICT[temp]]}`);
+                            let price = 0;
+                            for(let i=0; i<city_list.length(); i++) {
+                                if (city_list[i] == CITIES_DICT[temp]) {
+                                    price = price_list[i];
+                                }
+                            }
+                            tooltip.text(`${CITIES_DICT[temp]} : ${price}`);
                             return tooltip.style("visibility", "visible"); 
                         })
                         .on("mouseout", function () { return tooltip.style("visibility", "hidden"); })
