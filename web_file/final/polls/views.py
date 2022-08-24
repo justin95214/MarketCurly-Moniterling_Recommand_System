@@ -92,6 +92,21 @@ def submit(request):
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
 
+    conn = pymysql.connect(
+    host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
+    user='awsusr',
+    password='12345678',
+    db='daduckDB')  
+  
+    curs = conn.cursor()
+
+  
+
+    curs.execute("SELECT * FROM Total WHERE date=%s",date)
+    item_date = curs.fetchall()
+    print(item_date)
+
+
         # Initialize example dataframe
     data = {
         'Week': [1, 2, 3, 4, 5, 1, 2, 3, 4, 5],
