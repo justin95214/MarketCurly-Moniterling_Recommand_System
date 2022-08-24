@@ -5,7 +5,6 @@ import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
-
 import matplotlib.colors as mcl
 
 matplotlib.rcParams['axes.unicode_minus'] =False
@@ -120,11 +119,8 @@ table = make_pivot(result)
 #table = make_color(result)
 make_heatmap(table)
 
-
 table.to_excel("result.xlsx", encoding='cp949', engine='openpyxl')
 print(table)
-
-
 """
 
 
