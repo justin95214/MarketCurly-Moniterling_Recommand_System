@@ -19,7 +19,8 @@ height: 20px; /*Desired height*/
         background-color: rgb( 95 0 128);
         border-radius: 0.5rem;
         color:white;
-       
+        width :20px; 
+        height :20px;
         font-family: 'IBM Plex Sans KR', sans-serif;
     font-family: 'Noto Sans KR', sans-serif;
     font-size : 15px;
@@ -338,7 +339,7 @@ div.df_style{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            var FULL = '{{city_values | safe}}';
+                            var FULL = "{{city_values | safe}}";
                             FULL = JSON.parse(FULL);
                             console.log(typeof(FULL));
                             var temp = 'c-' + String(d.properties.code);
@@ -446,7 +447,7 @@ div.df_style{
             타 E커머스 가격 비교 분포도
             </br>
             <form id="test" method="post" action="">{% csrf_token %}
-                상품명: <input id="testpro" name='productname' type="text" value="">
+                상품명: <input style="font-size:20px;" id="testpro" name='productname' type="text" value="">
 
                 날짜: <input class="date" name ="date" type="date" id='now_date'>
                 <script>document.getElementById('now_date').valueAsDate = new Date();</script>
