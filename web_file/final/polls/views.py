@@ -170,16 +170,17 @@ def submit(request):
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
     print(market_list)
+    a = a.split("'","")
+    a = a.split("[")
+    a = a.split("]")
     for i in market_list:
-        if (market_list[i] ==['Naver']):
+        if (market_list[i] =="Naver"):
             a = market_list[i]
-        elif(market_list[i] == ['Coupang']):
+        elif(market_list[i] == "Coupang"):
             a = market_list[i]
-        elif(market_list[i] == ['Gmarket']):
+        elif(market_list[i] == "Gmarket"):
             a = market_list[i]
-        a = a.split("'","")
-        a = a.split("[")
-        a = a.split("]")
+       
         print(a)
         
     conn = pymysql.connect(
