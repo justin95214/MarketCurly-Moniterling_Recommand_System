@@ -188,13 +188,13 @@ def submit(request):
     curs = conn.cursor()
 
   
-<<<<<<< HEAD
+
     curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%%' and DATE(%s) and SITE(%s)" , productname, date,a )
     curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%%' and DATE(%s) and SITE(%s)" , productname, date,b )
     #curs.execute("select * from  where TITLE LIKE '%김치%'")
-=======
-    curs.execute("select * from Total where DATE(%s)",date) #상품명,
->>>>>>> c0069e5f45d75198fcce6c81dfc7374439d7238e
+
+    #curs.execute("select * from Total where DATE(%s)",date) #상품명,
+
     item_date = curs.fetchall()
     
 
