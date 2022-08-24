@@ -45,8 +45,7 @@ def filter(market_list, total_df):
 		#gmarket_df = pd.read_csv("./gmarket.csv", encoding='utf8')
 		gmarket_df = total_df[total_df['site']=='Gmarket'].copy()
 		gmarket_df['weight'].replace('None',np.NaN)
-		gmarket_df['weight'].dropna()
-		print(gmarket_df['weight'].values.tolist())		
+		gmarket_df['weight'].dropna()	
 	
 		idx = gmarket_df[gmarket_df['weight']=='9~10'].index
 		
@@ -75,7 +74,6 @@ def make_pivot(df):
 	df.to_csv("result_temp.csv", encoding='cp949')
 	df0 = pd.pivot_table(df, index='location', columns = 'unit_price', values='price', aggfunc='count')
 	df0 = df0.fillna(0)
-	print(df0.columns)
 	#df0.style.applymap(draw_color_cell,color='#ff9090',subset=pd.IndexSlice[2:5,'1333':'1490'])
 	return df0
 
@@ -83,13 +81,10 @@ def make_pivot(df):
 def make_color(df):
 	df.dropna()
 	sum = df['unit_price'].sum()
-	print(df['unit_price'].values.tolist())
 	df['dist'] = df['unit_price']/ sum
-	print(df['dist'].values.tolist()) 
 
 	df0 = pd.pivot_table(df, index='location', columns = 'unit_price', values='price', aggfunc='count')
 	loc_df = df.applymap(lambda x : x[0])
-	print(loc_df)
 	return df0
 
 def make_heatmap(df):
@@ -186,7 +181,6 @@ def submit(request):
   
     curs.execute("select * from Total where DATE(%s)",date) #상품명,
     item_date = curs.fetchall()
-    print(item_date)
     
 
     data0 = read_total_data()
@@ -236,7 +230,7 @@ def submit(request):
     for city in city_list:
         response_dict[city] = result[city] 
 
-    return render(request,'polls/main.html', response_dict)
+    return render(request,'polls/main.html', {'productname':productname, 'df':data.to_html(), 'image_name':image_name})
 
 
 def margin(request):
