@@ -330,7 +330,8 @@ div.df_style{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
-                            var FULL = JSON.parse("{{city_values | safe}}");
+                            var FULL = "{{city_values | safe}}";
+                            FULL = JSON.parse(FULL);
                             console.log(typeof(FULL));
                             var temp = 'c-' + String(d.properties.code);
             
