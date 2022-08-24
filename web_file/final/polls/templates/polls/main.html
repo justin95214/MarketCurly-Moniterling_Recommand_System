@@ -340,6 +340,8 @@ div.df_style{
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
                             let city_list = "{{city_list | safe}}";
                             let price_list = "{{price_list | safe}}";
+                            console.log(city_list)
+                            console.log(price_list)
                             var temp = 'c-' + String(d.properties.code);
                             let price = 0;
                             for(let i=0; i<city_list.length; i++) {
