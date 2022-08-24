@@ -146,7 +146,7 @@ def submit(request):
     # filter_data = pd.concat(temp_list, axis = 0)
     city_values = calc_city_avg(data, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':filter_data.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':data.to_html(),'market_list':market_list})
 
 def margin(request):
     conn = pymysql.connect(
