@@ -1,6 +1,7 @@
 from cmath import nan
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 import pymysql
 import re
 import numpy as np
@@ -69,23 +70,20 @@ def read_total_data():
 
 
 def calc_city_avg(df, city_list):
-    price_list = []
+    city_dict = {}
     for city in city_list:
         total = 0
         count = 0
         for index, row in df.iterrows():
             if row['location'] == city:
-                #if row['price'].isdigit():
                 total += row['price']
                 count += 1
         mean_value = 0
         if count != 0:
             mean_value = total / count
-        temp = f'"{city}"'
-        temp = temp[1:-1]
-        price_list.append(mean_value)
-    
-    return price_list
+        city_dict[city] = mean_value
+
+    return city_dict
 
 def submit(request): 
     productname = request.POST.get('productname') #상품명
@@ -179,9 +177,10 @@ def submit(request):
 
     # print(temp_list)
     # filter_data = pd.concat(temp_list, axis = 0)
-    price_list = calc_city_avg(data, city_list)
+    result = calc_city_avg(data, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'city_list':city_list, 'price_list':price_list, 'df':data.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, 'calc_city_avg':JsonResponse(result), 'df':data.to_html(),'market_list':market_list})
+
 
 def margin(request):
     conn = pymysql.connect(
