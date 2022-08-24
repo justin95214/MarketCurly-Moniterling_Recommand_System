@@ -112,11 +112,12 @@ div.df_style{
         width: 100%;
         height: 500px;
         font-size: 27px;
+        margin: 5px 5px 5px 5px;
         
     }
 
     div.left {
-        width: 100%;
+        width: 80%;
         
         float: left;
         box-sizing: border-box;
@@ -129,14 +130,14 @@ div.df_style{
 
     }
     div.left2 {
-        width: 50%;
+        width: 40%;
         float: left;
         box-sizing: border-box;
         font-size: 25px;
         background-color:white;
         border : 3.5px #E2E2E2 solid ; 
         border-radius: 0.5rem;
-        margin-right:10px;
+      
         
 
     }
@@ -148,7 +149,7 @@ div.df_style{
 
     }
     div.left3 {
-        width: 50%;
+        width: 40%;
         float: left;
         box-sizing: border-box;
         font-size: 25px;
@@ -160,26 +161,25 @@ div.df_style{
 
     }
     div.left4 {
-    width: 50%;
+    width: 40%;
     float: left;
     box-sizing: border-box;
     font-size: 25px;
     background-color:white;
     border : 3.5px #E2E2E2 solid ; 
     border-radius: 0.5rem;
-    margin-left:10px;
+    
 
 }
 
     div.right2 {
-        width: 50%;
+        width: 40%;
         float: right;
         box-sizing: border-box;
         font-size: 25px;
         background-color:white;
         border : 3.5px #E2E2E2 solid ; 
         border-radius: 0.5rem;
-        margin-left:10px;
         
     }
 
@@ -241,10 +241,11 @@ div.df_style{
     
     <div class="recommand">
     {{recommand}}</br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(100g or 1kg 당)</br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(100g or 1kg 당)</br></br>
     &nbsp&nbsp&nbsp&nbsp&nbsp산출 근거</br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 가격등급 {{grade}}</br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp평균 마진율 금액{{marginprice}}</br>(판매가 - 동급가)
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 가격등급 {{grade}}</br></br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp평균 마진율 금액&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    {{marginprice}}</br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(판매가 - 동급가)
 </br></br>
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp상품 B등급 범위 이내에서</br>
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 보다 낮은 가격 중</br>
@@ -475,7 +476,7 @@ div.df_style{
         <div class="left3">
             타 E커머스 가격 비교 마진율 현황</br>
             <form id="test2" method="post" action="">{% csrf_token %}
-                상품 공급가: <input  style="font-size:20px;" type="text" name="margin"> (100g or 1kg 당)
+                상품 공급가: <input  style="font-size:20px;"type="text" name="margin"> (100g or 1kg 당)
                 <input class="btn" type="submit" value="검색" onClick='return submit2(this.form);'>
             </form>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
