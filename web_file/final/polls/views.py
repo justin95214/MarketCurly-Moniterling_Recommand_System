@@ -169,14 +169,14 @@ def submit(request):
     productname = request.POST.get('productname') #상품명
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
-    a =0
+    
     for i in market_list:
         if (market_list[i] =="Naver"):
             a = market_list[i]
         elif(market_list[i] == "Coupang"):
-            b = market_list[i]
+            a = market_list[i]
         elif(market_list[i] == "Gmarket"):
-            c = market_list[i]
+            a = market_list[i]
     
         
     conn = pymysql.connect(
@@ -189,8 +189,8 @@ def submit(request):
 
   
 
-    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%%' and DATE(%s) and SITE(%s)" , productname, date,a )
-    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%%' and DATE(%s) and SITE(%s)" , productname, date,b )
+    curs.execute("select * from Total INNER JOIN kimchi where TITLE LIKE '%(%s)%' and DATE(%s) and SITE(%s)" , productname, date,a )
+  
     #curs.execute("select * from  where TITLE LIKE '%김치%'")
 
     #curs.execute("select * from Total where DATE(%s)",date) #상품명,
