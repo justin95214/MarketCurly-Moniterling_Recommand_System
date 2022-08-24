@@ -7,7 +7,14 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <style>
-   
+   input[type="checkbox"]{
+
+width: 30px; /*Desired width*/
+
+height: 30px; /*Desired height*/
+
+
+}
      input.btn{
         background-color: rgb( 95 0 128);
         border-radius: 0.5rem;
@@ -18,8 +25,8 @@
     font-size : 15px;
     }
     input.date{
-        width:10px;
-        height:10px;
+        width:50px;
+        height:20px;
 
     }
     path{
@@ -98,6 +105,7 @@ div.df_style{
 }
     canvas{
         background: #ffffff;
+        font-size : 10px;
     }
     div {
         width: 100%;
@@ -448,7 +456,7 @@ div.df_style{
             
             <input type="checkbox" name="selected" value="Gmarket"  >G마켓</br>
                <div class="df_style">
-                {{df| safe}}
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{df| safe}}
             </div>
             </form>
             
