@@ -240,14 +240,14 @@ div.df_style{
     
     <div class="recommand">
     {{recommand}}</br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp(100g or 1kg 당)</br>
-    산출 근거</br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 가격등급 {{grade}}</br>
-    &nbsp&nbsp&nbsp&nbsp&nbsp평균 마진율 금액{{marginprice}}</br>(판매가 - 동급가)
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(100g or 1kg 당)</br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp산출 근거</br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 가격등급 {{grade}}</br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp평균 마진율 금액{{marginprice}}</br>(판매가 - 동급가)
 </br></br>
-&nbsp&nbsp&nbsp&nbsp&nbsp상품 B등급 범위 이내에서</br>
-&nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 보다 낮은 가격 중</br>
-&nbsp&nbsp&nbsp&nbsp&nbsp평균 이상의 마진율 가격
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp상품 B등급 범위 이내에서</br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp대형 E커머스 보다 낮은 가격 중</br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp평균 이상의 마진율 가격
 </div>
 </div>
 <div class="right2">
@@ -474,7 +474,7 @@ div.df_style{
         <div class="left3">
             타 E커머스 가격 비교 마진율 현황</br>
             <form id="test2" method="post" action="">{% csrf_token %}
-                상품 공급가: <input type="text" name="margin"> (100g or 1kg 당)
+                상품 공급가: <input  style="font-size:20px;" type="text" name="margin"> (100g or 1kg 당)
                 <input class="btn" type="submit" value="검색" onClick='return submit2(this.form);'>
             </form>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>
