@@ -82,6 +82,8 @@ def calc_city_avg(df, city_list):
         if count != 0:
             mean_value = total / count
         temp = f'"{city}"'
+        del temp[0]
+        del temp[-1]
         city_dict[temp] = mean_value
     
     return city_dict
