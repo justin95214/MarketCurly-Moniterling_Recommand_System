@@ -144,7 +144,7 @@ def submit(request):
 
     # print(temp_list)
     # filter_data = pd.concat(temp_list, axis = 0)
-    city_values = calc_city_avg(filter_data, city_list)
+    city_values = calc_city_avg(data, city_list)
     
     return render(request,'polls/main.html',{'productname':productname, 'city_values':city_values, 'df':filter_data.to_html(),'market_list':market_list})
 
