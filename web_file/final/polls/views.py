@@ -171,9 +171,9 @@ def submit(request):
     market_list = request.POST.getlist('selected') 
     print(market_list)
     a = ""
-    a = a.split("'","")
-    a = a.split("[")
-    a = a.split("]")
+    market_list.split("'","")
+    market_list.split("[")
+    market_list.split("]")
     for i in market_list:
         if (market_list[i] =="Naver"):
             a = market_list[i]
