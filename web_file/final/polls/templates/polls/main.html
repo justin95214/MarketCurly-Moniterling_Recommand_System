@@ -311,7 +311,6 @@ div.df_style{
 
                     console.log("center", center);
                     console.log("scale", scale);
-                    var FULL = "{{city_values}}"; 
                     // var cityname = tooltip.text(`${CITIES_DICT['c-' + d.properties.code]}`);
 
                     map.selectAll("path")
@@ -326,6 +325,7 @@ div.df_style{
                         .on('mouseover', function (d) { 
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
+                            var FULL = "{{city_values}}";
                             let temp = 'c-' + d.properties.code;
                             tooltip.text(`${CITIES_DICT[temp]} : ${FULL[CITIES_DICT[temp]]}`);
                             return tooltip.style("visibility", "visible"); 
