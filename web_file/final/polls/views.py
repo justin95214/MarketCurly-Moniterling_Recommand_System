@@ -120,19 +120,17 @@ def submit(request):
         "경상남도",
         "제주특별자치도"
     ]
-    # temp_list = []
-    # for market in market_list:
-    #     temp = None
-    #     for index, row in data.iterrows():
-    #         if row['location'] == market:
-    #             temp = data.iloc[index]
-    #             temp_list.append(temp)
 
-    # print(temp_list)
-    # filter_data = pd.concat(temp_list, axis = 0)
     result = calc_city_avg(data, city_list)
-    
-    return render(request,'polls/main.html',{'productname':productname, '테스트':'asdf', 'df':data.to_html(),'market_list':market_list})
+    response_dict = {
+        'productname':productname,
+        'df':data.to_html(),
+        'market_list':market_list
+    }
+    for city in city_list:
+        response_dict[city] = result[city] 
+
+    return render(request,'polls/main.html', response_dict)
 
 
 def margin(request):
