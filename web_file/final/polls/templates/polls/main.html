@@ -326,7 +326,9 @@ div.df_style{
                             tooltip.style("left", (d3.event.pageX + 10) + "px");
                             tooltip.style("top", (d3.event.pageY - 10) + "px");
                             var FULL = "{{city_values}}";
-                            let temp = 'c-' + d.properties.code;
+                            var temp = 'c-' + string(d.properties.code);
+            
+                            console.log(FULL);
                             tooltip.text(`${CITIES_DICT[temp]} : ${FULL[CITIES_DICT[temp]]}`);
                             return tooltip.style("visibility", "visible"); 
                         })
