@@ -342,7 +342,7 @@ div.df_style{
                             let price_list = "{{price_list | safe}}";
                             var temp = 'c-' + String(d.properties.code);
                             let price = 0;
-                            for(let i=0; i<city_list.length(); i++) {
+                            for(let i=0; i<city_list.length; i++) {
                                 if (city_list[i] == CITIES_DICT[temp]) {
                                     price = price_list[i];
                                 }
