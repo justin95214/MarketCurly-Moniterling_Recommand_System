@@ -1,4 +1,4 @@
-create table daduckDB.naver (
+create table daduckDB.pear(
     date datetime,
     title varchar(500),
     price int,
@@ -9,7 +9,7 @@ create table daduckDB.naver (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 alter table daduckDB.naver add primary key(date, title, price);
 
-create table daduckDB.gmarket (
+create table daduckDB.pear(
     date datetime,
     title varchar(500),
     price int,

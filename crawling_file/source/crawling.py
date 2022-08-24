@@ -419,16 +419,25 @@ class NaverCrawling(Crawling):
 
         return super().crawling(db, keyword, total_page)
 
-
 class CoupangCrawling(Crawling):
     def crawling(self, db, keyword, total_page):
         products_link = []
         for page in range(1, total_page + 1):
             self.print_page_status(page)
+            print("1")
+            url = 'https://www.coupang.com/np/search?q={keyword}&channel=user&sorter=scoreDesc&listSize=36&isPriceRange=false&rating=0&page={page}&rocketAll=false'
+            print("5")
+            response = requests.get(url, headers=self.header)
+            print("4")
+            soup = BeautifulSoup(response.content, 'html.parser')
+            products_lis = soup.find('ul', id='productList').find_all('li')
+            """
             url = f'https://www.coupang.com/np/search?q={keyword}&channel=user&sorter=scoreDesc&listSize=36&isPriceRange=false&rating=0&page={page}&rocketAll=false'
             response = requests.get(url, headers=self.header)
             soup = BeautifulSoup(response.content, 'html.parser')
             products_lis = soup.find('ul', id='productList').find_all('li')
+            """
+            print("3")
             for li in products_lis:
                 site = "Coupang"
                 kind = location = ""
@@ -442,7 +451,7 @@ class CoupangCrawling(Crawling):
                     location = dm.location(
                         m, self.df_location, self.dict_location)
                     location_list.append(location)
-
+                print("2")
                 for place in location_list:
                     if place in list(self.df_location['시도'].values):
                         location = place
@@ -490,8 +499,8 @@ class CoupangCrawling(Crawling):
                     'site': site,
                     'location': location
                 }
-                if products_info['weight'] != 0 and products_info['location'] != "":
-                    products_link.append(products_info)
+                products_link.append(products_info)
+                print("playing")
 
         df = pd.DataFrame(products_link)
         df.to_csv(f'{self.TABLE_NAME}.csv', index=False,

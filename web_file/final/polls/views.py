@@ -6,7 +6,7 @@ import pymysql
 import re
 import numpy as np
 import pandas as pd
-import pivot
+# from pivot import make_pivot, make_heatmap, make_color
 
 def main_page(request): #아무것도 없는 첫화면
     city_values = {
@@ -69,25 +69,25 @@ def submit(request):
     date = request.POST.get('date') #날짜
     market_list = request.POST.getlist('selected') 
 
-    conn = pymysql.connect(
-    host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
-    user='awsusr',
-    password='12345678',
-    db='daduckDB')  
+    # conn = pymysql.connect(
+    # host='awskurly.caeqso43nbt7.ap-northeast-2.rds.amazonaws.com',
+    # user='awsusr',
+    # password='12345678',
+    # db='daduckDB')  
   
-    curs = conn.cursor()
+    # curs = conn.cursor()
 
   
 
-    curs.execute("SELECT * FROM Total WHERE date=%s",date)
-    item_date = curs.fetchall()
-    print(item_date)
+    # curs.execute("SELECT * FROM Total WHERE date=%s",date)
+    # item_date = curs.fetchall()
+    # print(item_date)
 
-    data0 = read_total_data()
-    result = pivot.filter(market_list, data0)
-    table = make_pivot(result)
+    # data0 = read_total_data()
+    # result = filter(market_list, data0)
+    # table = make_pivot(result)
     #table = make_color(result)
-    make_heatmap(table)
+    # make_heatmap(table)
 
     # data0 = filter(market_list, data0)
     ###
@@ -132,7 +132,7 @@ def submit(request):
     # filter_data = pd.concat(temp_list, axis = 0)
     result = calc_city_avg(data, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'calc_city_avg':JsonResponse(result), 'df':data0.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, '테스트':'asdf', 'df':data.to_html(),'market_list':market_list})
 
 
 def margin(request):
