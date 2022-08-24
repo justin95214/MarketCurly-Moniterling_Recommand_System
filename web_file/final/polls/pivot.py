@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from DB import DB
+
 import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
@@ -11,33 +11,14 @@ import matplotlib.colors as mcl
 matplotlib.rcParams['axes.unicode_minus'] =False
 
 #네이버/쿠팡/지마켓/이마트
-def filter(naver, coupang, gmarket, emart):
+def filter(market_list, total_df):
 
-	
 	naver_df = pd.DataFrame()  
 	coupang_df = pd.DataFrame()
 	gmarket_df = pd.DataFrame()
 	emart_df = pd.DataFrame()
 
-	TABLE_NAME = 'Total'
-	ENGINE_URL = 'mysql+pymysql://root:0000@localhost:3306/daduckDB?charset=utf8mb4'
-	# engineUrl = 'mysql+pymysql://root:root@localhost:3306/kurly?charset=utf8mb4'
-	db = DB(TABLE_NAME, ENGINE_URL)
-	conn = db.get_conn()
-
-	conn.execute('SET NAMES utf8;')
-	conn.execute('SET CHARACTER SET utf8;')
-	conn.execute('SET character_set_connection=utf8;')
-
-
-	## 합칠 데이터프레임
-	#total_df = 
-	sql="select * from Total where price >0 and weight>0"
-
-	total_df = pd.read_sql_query(sql,conn)
-	total_df.to_csv(r'pandas_output.csv',index=False)
-
-	if naver == True:
+	if 'Naver' in market_list:
 		#naver_df = pd.read_csv("./naver.csv", encoding='utf8')
 		naver_df = total_df[total_df['site']=='Naver'].copy()
 	
@@ -48,7 +29,7 @@ def filter(naver, coupang, gmarket, emart):
 		naver_df['weight'].dropna()
 		total_df = pd.concat([total_df, naver_df],  ignore_index=True)
 
-	if coupang == True:
+	if 'Coupang' in market_list:
 		#coupang_df = pd.read_csv("./coupang.csv", encoding='utf8')
 		coupang_df = total_df[total_df['site']=='Coupang'].copy()
 		coupang_df['unit_price'] = coupang_df['price'].copy()
@@ -58,7 +39,7 @@ def filter(naver, coupang, gmarket, emart):
 		total_df = pd.concat([total_df, coupang_df],  ignore_index=True)
 		
 
-	if gmarket == True:
+	if 'Gmarket' in market_list:
 		#gmarket_df = pd.read_csv("./gmarket.csv", encoding='utf8')
 		gmarket_df = total_df[total_df['site']=='Gmarket'].copy()
 		gmarket_df['weight'].replace('None',np.NaN)
@@ -76,10 +57,6 @@ def filter(naver, coupang, gmarket, emart):
 		#gmarket_df['unit_price'] = gmarket_df['unit_price']
 		gmarket_df = pd.concat([total_df, gmarket_df],  ignore_index=True)
 
-	#if emart == True:
-	#	emart_df = pd.read_csv("./emart.csv", encoding='utf8')
-	#	total_df = pd.concat([emart_df, emart_df],  ignore_index=True)
-	
 	return total_df
 
 
@@ -88,6 +65,8 @@ def filter(naver, coupang, gmarket, emart):
 def draw_color_cell(x,color):
 	color = f'background-color:{color}'
 	return color 
+
+	
 
 
 def make_pivot(df):
@@ -135,7 +114,7 @@ def make_heatmap(df):
 	plt.show()
 
 
-
+"""
 result = filter(True, True, False, True)
 table = make_pivot(result)
 #table = make_color(result)
@@ -144,5 +123,9 @@ make_heatmap(table)
 
 table.to_excel("result.xlsx", encoding='cp949', engine='openpyxl')
 print(table)
+
+
+"""
+
 
 

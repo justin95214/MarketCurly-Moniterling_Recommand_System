@@ -132,7 +132,7 @@ def submit(request):
     # filter_data = pd.concat(temp_list, axis = 0)
     result = calc_city_avg(data, city_list)
     
-    return render(request,'polls/main.html',{'productname':productname, 'calc_city_avg':JsonResponse(result), 'df':data0.to_html(),'market_list':market_list})
+    return render(request,'polls/main.html',{'productname':productname, '테스트':'asdf', 'df':data0.to_html(),'market_list':market_list})
 
 
 def margin(request):
