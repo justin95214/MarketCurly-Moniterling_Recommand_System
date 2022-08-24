@@ -196,7 +196,7 @@ def submit(request):
     #curs.execute("select * from Total where DATE(%s)",date) #상품명,
 
     item_date = curs.fetchall()
-    
+    print(item_date)
 
     data0 = read_total_data()
     result = filter(market_list, data0)
