@@ -13,16 +13,15 @@ def sub_process_list_start(command_list):
     return process_list
 
 
-def crawling_process(keyword='사과', total_page='2'):
+def crawling_process(keyword='김치', total_page='5'):
     print(f'### CURRENT DIR {os.getcwd()}')
     print(f'### KEYWORD : {keyword}, SEARCH_PAGE : {total_page}')
-    crawling_command1 = ['python', 'coupangCrawling.py', keyword, total_page]
+    #crawling_command1 = ['python', 'coupangCrawling.py', keyword, '3']
     #crawling_command2 = ['python', 'emartCrawling.py', keyword, total_page]
-    crawling_command3 = ['python', 'gmarketCrawling.py', keyword, total_page]
-    #crawling_command4 = ['python', 'naverCrawling.py', keyword, total_page]
-    crawling_command4 = ['python', 'naverCrawling.py', keyword, total_page]
-    command_list = [crawling_command1,
-                    crawling_command3, crawling_command4]
+    crawling_command3 = ['python', 'gmarketCrawling.py', keyword, '3']
+    crawling_command4 = ['python', 'naverCrawling.py', keyword, '7']
+    #crawling_command4 = ['python', 'naverCrawling.py', keyword, '20']
+    command_list = [crawling_command3,crawling_command4]
 
     process_list = sub_process_list_start(command_list=command_list)
 

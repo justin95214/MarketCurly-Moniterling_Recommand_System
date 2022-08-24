@@ -6,7 +6,7 @@ import pymysql
 import re
 import numpy as np
 import pandas as pd
-import pivot
+from pivot  import pivot
 
 def main_page(request): #아무것도 없는 첫화면
     city_values = {
@@ -84,7 +84,7 @@ def submit(request):
     print(item_date)
 
     data0 = read_total_data()
-    result = pivot.filter(market_list, data0)
+    result = filter(market_list, data0)
     table = make_pivot(result)
     #table = make_color(result)
     make_heatmap(table)
